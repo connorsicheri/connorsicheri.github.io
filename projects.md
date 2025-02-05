@@ -1,5 +1,37 @@
----
-layout: page
-title: "Projects"
-permalink: /projects/
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Connor Sicheri</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Connor Sicheri</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section">
+        <h2>My Projects</h2>
+        <ul>
+            <li><a href="#">Project 1</a></li>
+            <li><a href="#">Project 2</a></li>
+            <li><a href="#">Project 3</a></li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Connor Sicheri. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
