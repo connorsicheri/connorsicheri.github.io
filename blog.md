@@ -1,7 +1,5 @@
 ---
 layout: page
-title: "Coursework"
+title: "Blog"
 permalink: /coursework/
 ---
-
-Content for coursework here.
