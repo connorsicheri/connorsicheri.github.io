@@ -1,3 +1,9 @@
 title: "Connor Sicheri"
 description: "My coursework, projects, and blog"
 theme: Architect  # You can change this to another theme later
+
+# Navigation links
+header_pages:
+  - coursework.md
+  - projects.md
+  - blog.md
