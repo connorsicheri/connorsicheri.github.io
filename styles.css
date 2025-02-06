@@ -115,6 +115,23 @@ ul li a:hover {
     color: #1e3c72;
 }
 
+/* dark text list (for white backgrounds) */
+.dark-list li {
+    color: #2a5298; /* White text */
+}
+
+.dark-list li a {
+    color: #2a5298; /* Bright yellow links */
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.white-list li a:hover {
+    color: #b2c9f1;
+}
+
+
 /* Footer */
 footer {
     background-color: #1e3c72;
