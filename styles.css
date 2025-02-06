@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f4f8;
-    color: #222;
+    background-color: #f0f4f8;  /* Light grey-blue for good contrast */
+    color: #222; /* Dark text for easy readability */
     line-height: 1.6;
 }
 
@@ -19,10 +19,6 @@ header {
     padding: 20px 0;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    font-size: 2.5rem;
 }
 
 /* Navigation */
@@ -48,12 +44,13 @@ nav a:hover {
 
 /* Hero Section */
 .hero {
-    background-image: url('https://source.unsplash.com/1600x900/?blue,technology,abstract');
+    background-image: url('https://source.unsplash.com/1600x900/?technology,abstract');
     background-size: cover;
     background-position: center;
     color: white;
     padding: 100px 20px;
     text-align: center;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Helps text stand out on image */
 }
 
 .hero h2 {
@@ -66,9 +63,10 @@ nav a:hover {
     margin-bottom: 20px;
 }
 
+/* Button */
 .hero .btn {
-    background-color: #2a5298;
-    color: white;
+    background-color: #ffcc00; /* Bright yellow for contrast */
+    color: #222;
     text-decoration: none;
     padding: 12px 24px;
     border-radius: 8px;
@@ -77,14 +75,14 @@ nav a:hover {
 }
 
 .hero .btn:hover {
-    background-color: #1e3c72;
+    background-color: #ffaa00;
 }
 
 /* Section Styles */
 .section {
     padding: 50px 20px;
     text-align: center;
-    background-color: white;
+    background-color: white; /* Ensures readable dark text */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
     border-radius: 8px;
@@ -95,7 +93,7 @@ nav a:hover {
 .section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #1e3c72;
+    color: #1e3c72; /* Dark blue title */
 }
 
 ul {
