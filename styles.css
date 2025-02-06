@@ -127,7 +127,7 @@ ul li a:hover {
     transition: color 0.3s ease;
 }
 
-.white-list li a:hover {
+.dark-list li a:hover {
     color: #b2c9f1;
 }
 
