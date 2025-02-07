@@ -14,7 +14,7 @@ body {
 
 /* Header */
 header {
-    background: linear-gradient(to right, #000000, #01235f);
+    background: linear-gradient(to right, #000000, #00173d);
     color: white;
     padding: 20px 0;
     text-align: center;
@@ -134,7 +134,7 @@ ul li a:hover {
 
 /* Footer */
 footer {
-    background: linear-gradient(to right, #000000, #002056);
+    background: linear-gradient(to right, #000000, #00163c);
     color: white;
     text-align: center;
     padding: 20px 0;
