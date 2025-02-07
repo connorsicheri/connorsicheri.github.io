@@ -21,40 +21,60 @@
         </div>
     </header>
 
+    <header>
+        <h1>Bulgarian Path Algorithm</h1>
+    </header>
     <section class="section">
-        <h2>Bulgarian Path Algorithm</h2>
-        <p><strong>Published on:</strong> February 7, 2025</p>
+        <h2>Problem 1</h2>
         <p>
-            The Bulgarian Path Algorithm is an optimization algorithm used in graph theory to find 
-            efficient paths under certain constraints. It builds on the principles of shortest path 
-            algorithms but applies specific modifications to enhance performance in structured graph environments.
+            In this problem, you are given as input a directed graph G = (V, E), where each directed edge e ∈ E has a real-valued weight w(e),
+            and a color c(e) ∈ {W, G, R} (for white, green, and red). A <strong>Bulgarian path</strong> in G is a path that alternates edges
+            with colors W, G, and R, in this order.
         </p>
-        
-        <h3>Problem Statement</h3>
         <p>
-            Given a directed graph with weighted edges, the goal is to determine the most optimal path 
-            between a source and destination node while minimizing a cost function influenced by path constraints.
+            Assume that G has no negative weight Bulgarian cycle, i.e., there is no Bulgarian path in G whose first and last vertex are the same,
+            and the sum of the edge weights along the path is negative.
         </p>
-        
-        <h3>Algorithm Overview</h3>
-        <ul>
-            <li>Initialize distance estimates for all nodes.</li>
-            <li>Iteratively update distances based on predefined rules.</li>
-            <li>Maintain a structured queue for efficiency.</li>
-            <li>Terminate when convergence criteria are met.</li>
-        </ul>
-        
-        <h3>Implementation</h3>
-        <p>The algorithm can be implemented using a priority queue for efficient updates, similar to Dijkstra's algorithm.</p>
-
-        <h3>Conclusion</h3>
         <p>
-            The Bulgarian Path Algorithm provides a structured approach to pathfinding, offering advantages 
-            in certain constrained graph scenarios. Further research may explore its application in network routing 
-            and combinatorial optimization.
+            We define δ<sub>BG</sub>(s, u) to be the smallest weight of a Bulgarian path from s to u. The goal in this question is to compute
+            the smallest weight Bulgarian paths from a given source vertex s to every other vertex in V.
         </p>
-
-        <a href="../blog.html" class="btn">Back to Blog</a>
+    </section>
+    
+    <section class="section">
+        <h2>Solution</h2>
+        <p>
+            We transform our graph as follows:
+        </p>
+        <div class="image-gallery">
+            <img src="original_graph.png" alt="Original Graph">
+            <img src="transformed_graph.png" alt="Transformed Graph">
+        </div>
+        <p>
+            For every node in G, in G' we replace it with three nodes (Red, Green, White). Every red edge in G is transformed to an edge (red → white),
+            every white edge is transformed to (white → green), and every green edge is transformed to (green → red).
+        </p>
+        <h3>Theorem</h3>
+        <p>
+            Every path starting at a white node in G' is a Bulgarian path in G, and every Bulgarian path in G is represented as a path in G'
+            starting with a white node.
+        </p>
+        <h3>Proof</h3>
+        <p>
+            The edge mapping function is bijective, meaning each edge in G has a corresponding edge in G' and vice versa. We define a color function
+            c(k) based on the index modulo 3. Given a Bulgarian path p in G, we construct a path p' in G' such that it follows the Bulgarian path structure.
+            Since edges in G' are mapped systematically, any path starting at a white node in G' will follow the same alternating pattern as a Bulgarian path.
+        </p>
+        <h3>Algorithm</h3>
+        <p>
+            To find the minimal Bulgarian path from u to v, we run the Bellman-Ford algorithm on G' starting from u<sub>white</sub>.
+            Since we assumed there are no negative weight Bulgarian cycles in G, there are no negative weight cycles in G'.
+            Then, we select the minimum distance to v<sub>white</sub>, v<sub>green</sub>, or v<sub>red</sub>.
+        </p>
+        <h3>Time Complexity</h3>
+        <p>
+            The time complexity is the same as running Bellman-Ford on G', which has 3n nodes and m edges. Thus, the running time is O(nm).
+        </p>
     </section>
 
     <footer>
