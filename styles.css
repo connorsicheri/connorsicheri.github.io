@@ -140,3 +140,17 @@ footer {
     padding: 20px 0;
     margin-top: 30px;
 }
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.image-gallery img {
+    width: 200px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
