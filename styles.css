@@ -14,7 +14,7 @@ body {
 
 /* Header */
 header {
-    background: linear-gradient(to right, #0047cb, #2a5298);
+    background: linear-gradient(to right, #001131, #2a5298);
     color: white;
     padding: 20px 0;
     text-align: center;
@@ -92,7 +92,7 @@ nav a:hover {
 .section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #1e3c72; /* Dark blue title */
+    color: #ffffff; /* Dark blue title */
 }
 
 ul {
