@@ -135,8 +135,8 @@ nav a:hover { background: var(--nav-hover-bg); }
 .card:hover { transform: translateY(-4px); }
 .card img.thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 12px; }
 .card { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-.card h3 { font-size: 18px; margin-bottom: 6px; color: #9cdcfe; }
-.card p { color: var(--text); font-size: 14px; }
+.card h3 { font-size: 18px; margin-bottom: 6px; color: #9cdcfe; overflow-wrap: anywhere; word-break: break-word; }
+.card p { color: var(--text); font-size: 14px; overflow-wrap: anywhere; word-break: break-word; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .tag { font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 3px 8px; border-radius: 999px; }
 .card .links { margin-top: 10px; display: flex; gap: 12px; }
@@ -144,9 +144,12 @@ nav a:hover { background: var(--nav-hover-bg); }
 .card .links a:hover { border-bottom-color: var(--text); }
 
 /* Code-like utilities */
-.comment-line { color: #6a9955; }
+.comment-line { color: var(--muted); }
 .comment-line::before { content: "// "; color: #6a9955; }
 .tag { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background: var(--bg-elev); }
+
+/* Subtle code-style for hero title */
+.title.mono { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; color: #9cdcfe; }
 
 /* Lists */
 ul { list-style: none; }
