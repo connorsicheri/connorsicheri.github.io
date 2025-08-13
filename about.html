@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About — Connor Sicheri</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
     <header>
         <div class="container nav">
             <div class="brand">Connor Sicheri</div>
-            <nav>
-                <ul>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="about.html">About</a></li>
-                </ul>
-            </nav>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" data-theme-toggle>Light mode</button>
+            </div>
         </div>
     </header>
 
@@ -53,5 +56,6 @@
     <footer>
         <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
     </footer>
+    <script src="assets/js/theme.js"></script>
 </body>
 </html>

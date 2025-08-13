@@ -3,58 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deep Learning-Based PETase Optimization - Blog</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>PETase Redesign — Project</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Connor Sicheri</h1>
-            <nav>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../about.html">About</a></li>
-                    <li><a href="../projects.html">Projects</a></li>
-                    <li><a href="../blog.html">Blog</a></li>
-                </ul>
-            </nav>
+        <div class="container nav">
+            <div class="brand">Connor Sicheri</div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="../projects.html">Projects</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" data-theme-toggle>Light mode</button>
+            </div>
         </div>
     </header>
 
-    <header>
-        <h1>Deep Learning-Based Sequence Optimization of a PET-Degrading Enzyme</h1>
-    </header>
-    
-    <section class="section">
-        <h2>Introduction</h2>
-        <p>Plastic pollution is a growing environmental challenge, with <strong>polyethylene terephthalate (PET)</strong> making up nearly 10% of all plastic waste. <strong>PETase</strong>, an enzyme from <em>Ideonella sakaiensis</em>, has the potential to break down PET into its building blocks, enabling efficient recycling. However, its natural form is not optimized for industrial applications. My research focuses on <strong>leveraging machine learning to redesign PETase</strong>, enhancing its stability and catalytic efficiency for real-world use.</p>
-    </section>
+    <main class="container">
+        <article class="prose section">
+            <h1>Deep Learning‑Based Sequence Optimization of a PET‑Degrading Enzyme</h1>
+            <p>Plastic pollution is a growing environmental challenge, with <strong>polyethylene terephthalate (PET)</strong> making up nearly 10% of all plastic waste. <strong>PETase</strong>, an enzyme from <em>Ideonella sakaiensis</em>, has the potential to break down PET into its building blocks, enabling efficient recycling. However, its natural form is not optimized for industrial applications. My research focuses on <strong>leveraging machine learning to redesign PETase</strong>, enhancing its stability and catalytic efficiency for real-world use.</p>
 
-    <section class="section">
-        <h2>Machine Learning and Computational Methods</h2>
-        <ul>
-            <li><strong>ProteinMPNN</strong>: A deep learning model trained for <strong>sequence design</strong>, used to generate optimized PETase variants.</li>
-            <li><strong>HMM-based Sequence Search (HHblits)</strong>: Employed for <strong>iterative sequence searching</strong>, helping refine candidate enzyme sequences.</li>
-            <li><strong>AlphaFold</strong>: Used for <strong>structure prediction</strong>, evaluating the folding stability and structural integrity of redesigned sequences.</li>
-            <li><strong>TemStaPro & ProteinSol</strong>: Applied to assess the <strong>thermostability and solubility</strong> of modified PETase variants.</li>
-        </ul>
-    </section>
-    
-    <section class="section">
-        <h2>Results and Impact</h2>
-        <p>By combining these computational techniques, we generated <strong>high-confidence enzyme designs</strong> that exhibit improved structural properties. The next step is to experimentally validate these optimized PETase variants using <strong>yeast surface display</strong> and functional assays. Ultimately, this work demonstrates how <strong>machine learning can accelerate enzyme engineering</strong>, offering innovative solutions for plastic degradation and sustainability.</p>
-    </section>
+            <h2>Machine Learning and Computational Methods</h2>
+            <ul>
+                <li><strong>ProteinMPNN</strong>: A deep learning model trained for <strong>sequence design</strong>, used to generate optimized PETase variants.</li>
+                <li><strong>HMM-based Sequence Search (HHblits)</strong>: Employed for <strong>iterative sequence searching</strong>, helping refine candidate enzyme sequences.</li>
+                <li><strong>AlphaFold</strong>: Used for <strong>structure prediction</strong>, evaluating the folding stability and structural integrity of redesigned sequences.</li>
+                <li><strong>TemStaPro & ProteinSol</strong>: Applied to assess the <strong>thermostability and solubility</strong> of modified PETase variants.</li>
+            </ul>
 
-    <section class="section">
-        <h2>Project Poster</h2>
-        <p>Below is the research poster summarizing our findings:</p>
-        <div class="image-gallery">
-            <img src="../images/petase_poster.jpg" alt="PETase Research Poster" style="width: 100%; max-width: 1500px; display: block; margin: 0 auto;">
-        </div>
-    </section>
+            <h2>Results and Impact</h2>
+            <p>By combining these computational techniques, we generated <strong>high-confidence enzyme designs</strong> that exhibit improved structural properties. The next step is to experimentally validate these optimized PETase variants using <strong>yeast surface display</strong> and functional assays. Ultimately, this work demonstrates how <strong>machine learning can accelerate enzyme engineering</strong>, offering innovative solutions for plastic degradation and sustainability.</p>
+
+            <h2>Project Poster</h2>
+            <p>Below is the research poster summarizing our findings:</p>
+            <div class="image-gallery">
+                <img src="../images/petase_poster.jpg" alt="PETase Research Poster">
+            </div>
+        </article>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Connor Sicheri. All Rights Reserved.</p>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
     </footer>
+    <script src="../assets/js/theme.js"></script>
 </body>
 </html>
