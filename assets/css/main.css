@@ -145,6 +145,15 @@ ul { list-style: none; }
 .timeline .item h4 { font-size: 16px; }
 .timeline .item p { color: var(--muted); font-size: 14px; }
 
+/* Alternating vertical gallery */
+.vstack { display: grid; gap: 18px; }
+.vrow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: center; }
+.vrow img { width: 100%; height: auto; max-height: 520px; object-fit: contain; border-radius: 12px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.vrow .text { color: var(--muted); font-size: 15px; }
+.vrow.reverse { grid-template-columns: 1fr 1fr; }
+.vrow.reverse .image { order: 2; }
+.vrow.reverse .text { order: 1; }
+
 /* Footer */
 footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); text-align: center; }
 
