@@ -25,16 +25,13 @@
 
   // Wire up buttons with [data-theme-toggle]
   function wire() {
-    var buttons = document.querySelectorAll('[data-theme-toggle]');
-    buttons.forEach(function(btn) {
-      btn.addEventListener('click', function() {
+    var switches = document.querySelectorAll('[data-theme-toggle]');
+    switches.forEach(function(sw) {
+      sw.addEventListener('click', function() {
         var current = root.getAttribute('data-theme');
         var next = current === 'light' ? 'dark' : 'light';
         setTheme(next);
-        buttons.forEach(function(b) { b.textContent = next === 'light' ? 'Dark mode' : 'Light mode'; });
       });
-      var current = root.getAttribute('data-theme');
-      btn.textContent = current === 'light' ? 'Dark mode' : 'Light mode';
     });
   }
 
