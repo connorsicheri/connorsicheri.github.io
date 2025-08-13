@@ -148,8 +148,9 @@ nav a:hover { background: var(--nav-hover-bg); }
 .comment-line::before { content: "// "; color: #6a9955; }
 .tag { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background: var(--bg-elev); }
 
-/* Subtle code-style for hero title */
-.title.mono { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; color: #9cdcfe; }
+/* Subtle code-style utility */
+.mono { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+.title.mono, h1.mono, h2.mono, h3.mono, .section-title.mono { color: #9cdcfe; }
 
 /* Lists */
 ul { list-style: none; }
