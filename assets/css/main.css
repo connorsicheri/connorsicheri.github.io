@@ -151,6 +151,12 @@ footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted)
 /* Utilities */
 .spacer { height: 12px; }
 
+/* Compact inline gallery with captions */
+.gallery-inline { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; align-items: start; }
+.gallery-inline figure { margin: 0; }
+.gallery-inline img { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.gallery-inline figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
 @media (max-width: 860px) {
     .hero .content { grid-template-columns: 1fr; text-align: center; }
     .about-header { grid-template-columns: 1fr; text-align: center; }
