@@ -6,49 +6,54 @@
 }
 
 :root {
-    --bg: #0b1220;
-    --bg-elev: #0f172a;
-    --text: #e8edf5;
-    --muted: #a9b4c6;
-    --line: rgba(255,255,255,0.08);
-    --primary: #2563eb; /* blue */
-    --primary-2: #22d3ee; /* cyan */
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    --overlay-1: rgba(37,99,235,0.12);
-    --overlay-2: rgba(34,211,238,0.12);
+    /* VS Code Dark+ */
+    --bg: #1e1e1e;           /* editor background */
+    --bg-elev: #252526;      /* sidebar/panels */
+    --text: #d4d4d4;         /* editor.foreground */
+    --muted: #9da2a6;        /* muted labels */
+    --line: #3c3c3c;         /* borders/lines */
+    --primary: #007acc;      /* VS Code blue */
+    --primary-2: #3794ff;    /* lighter accent */
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --overlay-1: rgba(0,122,204,0.18);
+    --overlay-2: rgba(0,0,0,0.25);
 }
 
 /* Explicit theme overrides */
 [data-theme="light"] {
-    /* VS Code-inspired light palette */
-    --bg: #f5f7fb;            /* activity/side bar vibe */
-    --bg-elev: #ffffff;       /* editor background */
-    --text: #1f2328;          /* strong text */
-    --muted: #59636f;         /* muted text */
-    --line: rgba(0,0,0,0.10); /* subtle borders */
-    --primary: #007acc;       /* VS Code blue */
-    --primary-2: #40a6ff;     /* lighter blue */
+    /* VS Code Light+ */
+    --bg: #f3f3f3;           /* workbench */
+    --bg-elev: #ffffff;      /* editor background */
+    --text: #333333;         /* editor.foreground */
+    --muted: #6c7177;        /* muted labels */
+    --line: #e5e5e5;         /* borders/lines */
+    --primary: #007acc;      /* VS Code blue */
+    --primary-2: #40a6ff;    /* lighter accent */
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     --overlay-1: rgba(0,122,204,0.08);
     --overlay-2: rgba(0,0,0,0.02);
 }
 
 [data-theme="dark"] {
-    --bg: #0b1220;
-    --bg-elev: #0f172a;
-    --text: #e8edf5;
-    --muted: #a9b4c6;
-    --line: rgba(255,255,255,0.08);
+    --bg: #1e1e1e;
+    --bg-elev: #252526;
+    --text: #d4d4d4;
+    --muted: #9da2a6;
+    --line: #3c3c3c;
+    --primary: #007acc;
+    --primary-2: #3794ff;
+    --overlay-1: rgba(0,122,204,0.18);
+    --overlay-2: rgba(0,0,0,0.25);
 }
 
 /* Respect system preference by default; explicit data-theme wins when set */
 @media (prefers-color-scheme: light) {
     :root:not([data-theme]) {
-        --bg: #f5f7fb;
+        --bg: #f3f3f3;
         --bg-elev: #ffffff;
-        --text: #1f2328;
-        --muted: #59636f;
-        --line: rgba(0,0,0,0.10);
+        --text: #333333;
+        --muted: #6c7177;
+        --line: #e5e5e5;
         --primary: #007acc;
         --primary-2: #40a6ff;
         --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
