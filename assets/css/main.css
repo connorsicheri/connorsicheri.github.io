@@ -17,6 +17,8 @@
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
     --overlay-1: rgba(0,122,204,0.18);
     --overlay-2: rgba(0,0,0,0.25);
+    --header-bg: #252526;    /* activity/title bar */
+    --nav-hover-bg: rgba(255,255,255,0.06);
 }
 
 /* Explicit theme overrides */
@@ -32,6 +34,8 @@
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     --overlay-1: rgba(0,122,204,0.08);
     --overlay-2: rgba(0,0,0,0.02);
+    --header-bg: #f3f3f3;    /* title bar */
+    --nav-hover-bg: rgba(0,0,0,0.06);
 }
 
 [data-theme="dark"] {
@@ -85,8 +89,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 20;
-    backdrop-filter: saturate(1.2) blur(12px);
-    background: linear-gradient(to right, rgba(12,16,28,0.75), rgba(12,16,28,0.45));
+    background: var(--header-bg);
     border-bottom: 1px solid var(--line);
 }
 .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
@@ -94,7 +97,7 @@ header {
 .brand a { color: var(--text); text-decoration: none; }
 nav ul { list-style: none; display: flex; gap: 16px; }
 nav a { color: var(--text); text-decoration: none; padding: 8px 12px; border-radius: 10px; transition: 200ms ease; }
-nav a:hover { background: rgba(255,255,255,0.06); }
+nav a:hover { background: var(--nav-hover-bg); }
 
 /* Theme switch */
 .theme-switch { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--bg-elev); color: var(--text); border-radius: 999px; padding: 6px 10px; cursor: pointer; transition: 200ms ease; }
@@ -151,6 +154,17 @@ ul { list-style: none; }
 .prose img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); box-shadow: var(--shadow); }
 .prose .image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 12px; }
 .prose .image-gallery img { width: 100%; height: auto; object-fit: contain; }
+
+/* Code-like card with VS Code token colors */
+.code-card { background: var(--bg-elev); border: 1px solid var(--line); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; overflow: auto; }
+.code-card code { white-space: pre; color: var(--text); }
+.tok-kw { color: #c586c0; }    /* keyword */
+.tok-fn { color: #dcdcaa; }    /* function */
+.tok-str { color: #ce9178; }   /* string */
+.tok-num { color: #b5cea8; }   /* number */
+.tok-com { color: #6a9955; }   /* comment */
+.tok-id { color: #9cdcfe; }    /* identifier */
+.tok-op { color: #d4d4d4; }    /* operator */
 
 /* About page */
 .about-header { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center; }
