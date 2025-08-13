@@ -19,6 +19,14 @@
     --overlay-2: rgba(0,0,0,0.25);
     --header-bg: #252526;    /* activity/title bar */
     --nav-hover-bg: rgba(255,255,255,0.06);
+    /* Token colors (Dark+) */
+    --tok-kw: #c586c0;
+    --tok-fn: #dcdcaa;
+    --tok-str: #ce9178;
+    --tok-num: #b5cea8;
+    --tok-com: #6a9955;
+    --tok-id: #9cdcfe;
+    --tok-op: #d4d4d4;
 }
 
 /* Explicit theme overrides */
@@ -36,6 +44,14 @@
     --overlay-2: rgba(0,0,0,0.02);
     --header-bg: #f3f3f3;    /* title bar */
     --nav-hover-bg: rgba(0,0,0,0.06);
+    /* Token colors (Light+) */
+    --tok-kw: #0000ff;
+    --tok-fn: #795e26;
+    --tok-str: #a31515;
+    --tok-num: #098658;
+    --tok-com: #008000;
+    --tok-id: #001080;
+    --tok-op: #000000;
 }
 
 [data-theme="dark"] {
@@ -48,6 +64,13 @@
     --primary-2: #3794ff;
     --overlay-1: rgba(0,122,204,0.18);
     --overlay-2: rgba(0,0,0,0.25);
+    --tok-kw: #c586c0;
+    --tok-fn: #dcdcaa;
+    --tok-str: #ce9178;
+    --tok-num: #b5cea8;
+    --tok-com: #6a9955;
+    --tok-id: #9cdcfe;
+    --tok-op: #d4d4d4;
 }
 
 /* Respect system preference by default; explicit data-theme wins when set */
@@ -63,6 +86,13 @@
         --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         --overlay-1: rgba(0,122,204,0.08);
         --overlay-2: rgba(0,0,0,0.02);
+        --tok-kw: #0000ff;
+        --tok-fn: #795e26;
+        --tok-str: #a31515;
+        --tok-num: #098658;
+        --tok-com: #008000;
+        --tok-id: #001080;
+        --tok-op: #000000;
     }
 }
 
@@ -135,7 +165,7 @@ nav a:hover { background: var(--nav-hover-bg); }
 .card:hover { transform: translateY(-4px); }
 .card img.thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 12px; }
 .card { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-.card h3 { font-size: 18px; margin-bottom: 6px; color: #9cdcfe; overflow-wrap: anywhere; word-break: break-word; }
+.card h3 { font-size: 18px; margin-bottom: 6px; color: var(--tok-id); overflow-wrap: anywhere; word-break: break-word; }
 .card p { color: var(--text); font-size: 14px; overflow-wrap: anywhere; word-break: break-word; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .tag { font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 3px 8px; border-radius: 999px; }
@@ -145,12 +175,12 @@ nav a:hover { background: var(--nav-hover-bg); }
 
 /* Code-like utilities */
 .comment-line { color: var(--muted); }
-.comment-line::before { content: "// "; color: #6a9955; }
+.comment-line::before { content: "// "; color: var(--tok-com); }
 .tag { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background: var(--bg-elev); }
 
 /* Subtle code-style utility */
 .mono { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-.title.mono, h1.mono, h2.mono, h3.mono, .section-title.mono { color: #9cdcfe; }
+.title.mono, h1.mono, h2.mono, h3.mono, .section-title.mono { color: var(--tok-id); }
 
 /* Lists */
 ul { list-style: none; }
@@ -168,13 +198,13 @@ ul { list-style: none; }
 /* Code-like card with VS Code token colors */
 .code-card { background: var(--bg-elev); border: 1px solid var(--line); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; overflow: auto; }
 .code-card code { white-space: pre; color: var(--text); }
-.tok-kw { color: #c586c0; }    /* keyword */
-.tok-fn { color: #dcdcaa; }    /* function */
-.tok-str { color: #ce9178; }   /* string */
-.tok-num { color: #b5cea8; }   /* number */
-.tok-com { color: #6a9955; }   /* comment */
-.tok-id { color: #9cdcfe; }    /* identifier */
-.tok-op { color: #d4d4d4; }    /* operator */
+.tok-kw { color: var(--tok-kw); }    /* keyword */
+.tok-fn { color: var(--tok-fn); }    /* function */
+.tok-str { color: var(--tok-str); }  /* string */
+.tok-num { color: var(--tok-num); }  /* number */
+.tok-com { color: var(--tok-com); }  /* comment */
+.tok-id { color: var(--tok-id); }    /* identifier */
+.tok-op { color: var(--tok-op); }    /* operator */
 
 /* About page */
 .about-header { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center; }
