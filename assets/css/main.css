@@ -6,43 +6,93 @@
 }
 
 :root {
-    --bg: #0b1220;
-    --bg-elev: #0f172a;
-    --text: #e8edf5;
-    --muted: #a9b4c6;
-    --line: rgba(255,255,255,0.08);
-    --primary: #2563eb; /* blue */
-    --primary-2: #22d3ee; /* cyan */
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    /* VS Code Dark+ */
+    --bg: #1e1e1e;           /* editor background */
+    --bg-elev: #252526;      /* sidebar/panels */
+    --text: #d4d4d4;         /* editor.foreground */
+    --muted: #9da2a6;        /* muted labels */
+    --line: #3c3c3c;         /* borders/lines */
+    --primary: #007acc;      /* VS Code blue */
+    --primary-2: #3794ff;    /* lighter accent */
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --overlay-1: rgba(0,122,204,0.18);
+    --overlay-2: rgba(0,0,0,0.25);
+    --header-bg: #252526;    /* activity/title bar */
+    --nav-hover-bg: rgba(255,255,255,0.06);
+    /* Token colors (Dark+) */
+    --tok-kw: #c586c0;
+    --tok-fn: #dcdcaa;
+    --tok-str: #ce9178;
+    --tok-num: #b5cea8;
+    --tok-com: #6a9955;
+    --tok-id: #9cdcfe;
+    --tok-op: #d4d4d4;
 }
 
 /* Explicit theme overrides */
 [data-theme="light"] {
-    --bg: #fbfdff;
-    --bg-elev: #ffffff;
-    --text: #0b1220;
-    --muted: #5b677a;
-    --line: rgba(0,0,0,0.08);
+    /* VS Code Light+ */
+    --bg: #f3f3f3;           /* workbench */
+    --bg-elev: #ffffff;      /* editor background */
+    --text: #333333;         /* editor.foreground */
+    --muted: #6c7177;        /* muted labels */
+    --line: #e5e5e5;         /* borders/lines */
+    --primary: #007acc;      /* VS Code blue */
+    --primary-2: #40a6ff;    /* lighter accent */
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --overlay-1: rgba(0,122,204,0.08);
+    --overlay-2: rgba(0,0,0,0.02);
+    --header-bg: #f3f3f3;    /* title bar */
+    --nav-hover-bg: rgba(0,0,0,0.06);
+    /* Token colors (Light+) */
+    --tok-kw: #0000ff;
+    --tok-fn: #795e26;
+    --tok-str: #a31515;
+    --tok-num: #098658;
+    --tok-com: #008000;
+    --tok-id: #001080;
+    --tok-op: #000000;
 }
 
 [data-theme="dark"] {
-    --bg: #0b1220;
-    --bg-elev: #0f172a;
-    --text: #e8edf5;
-    --muted: #a9b4c6;
-    --line: rgba(255,255,255,0.08);
+    --bg: #1e1e1e;
+    --bg-elev: #252526;
+    --text: #d4d4d4;
+    --muted: #9da2a6;
+    --line: #3c3c3c;
+    --primary: #007acc;
+    --primary-2: #3794ff;
+    --overlay-1: rgba(0,122,204,0.18);
+    --overlay-2: rgba(0,0,0,0.25);
+    --tok-kw: #c586c0;
+    --tok-fn: #dcdcaa;
+    --tok-str: #ce9178;
+    --tok-num: #b5cea8;
+    --tok-com: #6a9955;
+    --tok-id: #9cdcfe;
+    --tok-op: #d4d4d4;
 }
 
 /* Respect system preference by default; explicit data-theme wins when set */
 @media (prefers-color-scheme: light) {
     :root:not([data-theme]) {
-        --bg: #fbfdff;
+        --bg: #f3f3f3;
         --bg-elev: #ffffff;
-        --text: #0b1220;
-        --muted: #5b677a;
-        --line: rgba(0,0,0,0.08);
+        --text: #333333;
+        --muted: #6c7177;
+        --line: #e5e5e5;
+        --primary: #007acc;
+        --primary-2: #40a6ff;
         --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --overlay-1: rgba(0,122,204,0.08);
+        --overlay-2: rgba(0,0,0,0.02);
+        --tok-kw: #0000ff;
+        --tok-fn: #795e26;
+        --tok-str: #a31515;
+        --tok-num: #098658;
+        --tok-com: #008000;
+        --tok-id: #001080;
+        --tok-op: #000000;
     }
 }
 
@@ -53,8 +103,8 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    background: radial-gradient(1100px 540px at 0% -10%, rgba(37,99,235,0.12), transparent 60%),
-                radial-gradient(1100px 540px at 100% 10%, rgba(34,211,238,0.12), transparent 60%),
+    background: radial-gradient(1100px 540px at 0% -10%, var(--overlay-1), transparent 60%),
+                radial-gradient(1100px 540px at 100% 10%, var(--overlay-2), transparent 60%),
                 var(--bg);
     color: var(--text);
     line-height: 1.65;
@@ -69,8 +119,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 20;
-    backdrop-filter: saturate(1.2) blur(12px);
-    background: linear-gradient(to right, rgba(12,16,28,0.75), rgba(12,16,28,0.45));
+    background: var(--header-bg);
     border-bottom: 1px solid var(--line);
 }
 .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
@@ -78,7 +127,7 @@ header {
 .brand a { color: var(--text); text-decoration: none; }
 nav ul { list-style: none; display: flex; gap: 16px; }
 nav a { color: var(--text); text-decoration: none; padding: 8px 12px; border-radius: 10px; transition: 200ms ease; }
-nav a:hover { background: rgba(255,255,255,0.06); }
+nav a:hover { background: var(--nav-hover-bg); }
 
 /* Theme switch */
 .theme-switch { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--bg-elev); color: var(--text); border-radius: 999px; padding: 6px 10px; cursor: pointer; transition: 200ms ease; }
@@ -115,13 +164,23 @@ nav a:hover { background: rgba(255,255,255,0.06); }
 .card { background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); transition: 220ms ease; }
 .card:hover { transform: translateY(-4px); }
 .card img.thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 12px; }
-.card h3 { font-size: 18px; margin-bottom: 6px; }
-.card p { color: var(--muted); font-size: 14px; }
+.card { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+.card h3 { font-size: 18px; margin-bottom: 6px; color: var(--tok-id); overflow-wrap: anywhere; word-break: break-word; }
+.card p { color: var(--text); font-size: 14px; overflow-wrap: anywhere; word-break: break-word; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .tag { font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 3px 8px; border-radius: 999px; }
 .card .links { margin-top: 10px; display: flex; gap: 12px; }
 .card .links a { color: var(--text); text-decoration: none; border-bottom: 1px dashed var(--line); }
 .card .links a:hover { border-bottom-color: var(--text); }
+
+/* Code-like utilities */
+.comment-line { color: var(--muted); }
+.comment-line::before { content: "// "; color: var(--tok-com); }
+.tag { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background: var(--bg-elev); }
+
+/* Subtle code-style utility */
+.mono { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+.title.mono, h1.mono, h2.mono, h3.mono, .section-title.mono { color: var(--tok-id); }
 
 /* Lists */
 ul { list-style: none; }
@@ -135,6 +194,17 @@ ul { list-style: none; }
 .prose img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); box-shadow: var(--shadow); }
 .prose .image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 12px; }
 .prose .image-gallery img { width: 100%; height: auto; object-fit: contain; }
+
+/* Code-like card with VS Code token colors */
+.code-card { background: var(--bg-elev); border: 1px solid var(--line); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; overflow: auto; }
+.code-card code { white-space: pre; color: var(--text); }
+.tok-kw { color: var(--tok-kw); }    /* keyword */
+.tok-fn { color: var(--tok-fn); }    /* function */
+.tok-str { color: var(--tok-str); }  /* string */
+.tok-num { color: var(--tok-num); }  /* number */
+.tok-com { color: var(--tok-com); }  /* comment */
+.tok-id { color: var(--tok-id); }    /* identifier */
+.tok-op { color: var(--tok-op); }    /* operator */
 
 /* About page */
 .about-header { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center; }

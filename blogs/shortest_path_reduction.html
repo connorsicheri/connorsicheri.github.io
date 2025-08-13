@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modified Shortest Path — Post</title>
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 <body>
     <header>
@@ -34,28 +35,24 @@
 
     <main class="container">
         <article class="prose section">
-            <h1>A Modified Shortest Path Problem</h1>
-            <h2>Preface</h2>
-            <p>
-                The shortest path problem is a cornerstone of graph theory. This post explores a constrained variant and a reduction strategy back to classic shortest path, with visuals.
-            </p>
+            <h1 class="mono">A Modified Shortest Path Problem</h1>
+            <h2 class="mono">Preface</h2>
+            <p>A constrained variant and a reduction strategy back to classic shortest path.</p>
 
-            <h2>Problem</h2>
-            <p>
-                Directed graph G = (V, E), edge weights w(e) and colors c(e) ∈ {W,G,R}. A path alternates W→G→R repeatedly. Compute δ_BG(s, u): the minimum‑weight alternating path from s to u, assuming no negative alternating cycles.
-            </p>
+            <h2 class="mono">Problem</h2>
+            <p>Directed G=(V,E), w(e), c(e)∈{W,G,R}; alternate W→G→R; compute δ_BG(s,u).</p>
 
-            <h2>Solution sketch</h2>
-            <p>Transform G to G' with three layers per vertex (White, Green, Red) and remap edges to preserve alternation. Then run Bellman‑Ford on G'.</p>
+            <h2 class="mono">Solution sketch</h2>
+            <p>Transform to layered G'; run Bellman‑Ford; take min over target layers.</p>
             <div class="image-gallery">
                 <img src="../images/original_graph.png" alt="Original Graph">
                 <img src="../images/transformed_graph.png" alt="Transformed Graph">
             </div>
 
-            <h3>Theorem</h3>
+            <h3 class="mono">Theorem</h3>
             <p>Paths starting at a white node in G' correspond 1‑to‑1 to alternating paths in G.</p>
 
-            <h3>Complexity</h3>
+            <h3 class="mono">Complexity</h3>
             <p>Same as Bellman‑Ford on G' (3n nodes, m edges): O(nm).</p>
         </article>
     </main>
