@@ -3,35 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Connor Sicheri</title>
+    <title>Blog — Connor Sicheri</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Connor Sicheri</h1>
+        <div class="container nav">
+            <div class="brand">Connor Sicheri</div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="section">
-        <h2>Blog</h2>
-        <ul>
-            <li><a href="blogs/shortest_path_reduction.html">A Modified Shortest Path Problem</a></li>
-            <li><a href="#">Blog Post 2</a></li>
-            <li><a href="#">Blog Post 3</a></li>
-        </ul>
-    </section>
+    <main class="container">
+        <section class="section">
+            <div class="section-title">Writing</div>
+            <div class="grid">
+                <div class="card">
+                    <h3><a href="blogs/shortest_path_reduction.html">A Modified Shortest Path Problem</a></h3>
+                    <p>Graph transformation approach for a constrained shortest path variant, with proofs and visuals.</p>
+                </div>
+                <div class="card">
+                    <h3>On small tools and leverage</h3>
+                    <p>Notes on building focused tools with compounding impact. (Coming soon)</p>
+                </div>
+                <div class="card">
+                    <h3>Runtime notes</h3>
+                    <p>Scheduling, fairness, and performance under contention. (Coming soon)</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Connor Sicheri. All Rights Reserved.</p>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
     </footer>
 </body>
 </html>
