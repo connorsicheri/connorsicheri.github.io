@@ -3,95 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulgarian Path Algorithm - Blog</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Modified Shortest Path — Post</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Connor Sicheri</h1>
-            <nav>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../about.html">About</a></li>
-                    <li><a href="../projects.html">Projects</a></li>
-                    <li><a href="../blog.html">Blog</a></li>
-                </ul>
-            </nav>
+        <div class="container nav">
+            <div class="brand"><a href="../index.html">Connor Sicheri</a></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../projects.html">Projects</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-switch" aria-label="Toggle color theme" data-theme-toggle>
+                    <span class="icon sun" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-8h-2v3h2V5zm7.66 1.66l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM17 13h3v-2h-3v2zm-5 6h2v-3h-2v3zm-7.66-.66l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zM12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </span>
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="icon moon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 00-1.05-.14 8 8 0 01-10.45-10.45 1 1 0 00-1.19-1.33A10 10 0 1022 14.19a1 1 0 00-.36-1.19z"/></svg>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <header>
-        <h1>Bulgarian Path Algorithm</h1>
-    </header>
-    <section class="section">
-        <h2>Preface</h2>
-        <p>
-            The shortest path problem is a fundamental question in graph theory and optimization. Given a graph with weighted edges, the goal is to determine the most efficient route between two nodes. This problem has widespread applications in areas like navigation, network routing, and artificial intelligence. Algorithms such as Dijkstra’s and Bellman-Ford provide efficient solutions under various conditions, making shortest path computations a cornerstone of theoretical and applied computer science.
+    <main class="container">
+        <article class="prose section">
+            <h1>A Modified Shortest Path Problem</h1>
+            <h2>Preface</h2>
+            <p>
+                The shortest path problem is a cornerstone of graph theory. This post explores a constrained variant and a reduction strategy back to classic shortest path, with visuals.
+            </p>
 
-            One particularly interesting variation is the Bulgarian Path Problem, which introduces additional constraints beyond simple distance minimization. This problem is relevant because it reflects real-world scenarios where paths are influenced by more than just length—consider factors like tolls, fuel consumption, or road closures. Studying reductions to the shortest path problem, such as those involving the Bulgarian Path Problem, provides deeper insights into complexity theory and algorithmic efficiency, helping researchers develop more robust and adaptable pathfinding algorithms.
+            <h2>Problem</h2>
+            <p>
+                Directed graph G = (V, E), edge weights w(e) and colors c(e) ∈ {W,G,R}. A path alternates W→G→R repeatedly. Compute δ_BG(s, u): the minimum‑weight alternating path from s to u, assuming no negative alternating cycles.
+            </p>
 
-            This blog post explores how the Bulgarian Path Problem can be reduced to the shortest path problem, offering a fresh perspective on constraint-driven graph traversal.
-        </p>
+            <h2>Solution sketch</h2>
+            <p>Transform G to G' with three layers per vertex (White, Green, Red) and remap edges to preserve alternation. Then run Bellman‑Ford on G'.</p>
+            <div class="image-gallery">
+                <img src="../images/original_graph.png" alt="Original Graph">
+                <img src="../images/transformed_graph.png" alt="Transformed Graph">
+            </div>
 
+            <h3>Theorem</h3>
+            <p>Paths starting at a white node in G' correspond 1‑to‑1 to alternating paths in G.</p>
 
-    </section>
-
-    <section class="section">
-        <h2>Problem 1</h2>
-        <p>
-            In this problem, you are given as input a directed graph G = (V, E), where each directed edge e ∈ E has a real-valued weight w(e),
-            and a color c(e) ∈ {W, G, R} (for white, green, and red). A <strong>Bulgarian path</strong> in G is a path that alternates edges
-            with colors W, G, and R, in this order.
-        </p>
-        <p>
-            Assume that G has no negative weight Bulgarian cycle, i.e., there is no Bulgarian path in G whose first and last vertex are the same,
-            and the sum of the edge weights along the path is negative.
-        </p>
-        <p>
-            We define δ<sub>BG</sub>(s, u) to be the smallest weight of a Bulgarian path from s to u. The goal in this question is to compute
-            the smallest weight Bulgarian paths from a given source vertex s to every other vertex in V.
-        </p>
-    </section>
-    
-    <section class="section">
-        <h2>Solution</h2>
-        <p>
-            We transform our graph as follows:
-        </p>
-        <div class="image-gallery">
-            <img src="../images/original_graph.png" alt="Original Graph">
-            <img src="../images/transformed_graph.png" alt="Transformed Graph">
-        </div>
-        <p>
-            For every node in G, in G' we replace it with three nodes (Red, Green, White). Every red edge in G is transformed to an edge (red → white),
-            every white edge is transformed to (white → green), and every green edge is transformed to (green → red).
-        </p>
-        <h3>Theorem</h3>
-        <p>
-            Every path starting at a white node in G' is a Bulgarian path in G, and every Bulgarian path in G is represented as a path in G'
-            starting with a white node.
-        </p>
-        <h3>Proof</h3>
-        <p>
-            The edge mapping function is bijective, meaning each edge in G has a corresponding edge in G' and vice versa. We define a color function
-            c(k) based on the index modulo 3. Given a Bulgarian path p in G, we construct a path p' in G' such that it follows the Bulgarian path structure.
-            Since edges in G' are mapped systematically, any path starting at a white node in G' will follow the same alternating pattern as a Bulgarian path.
-        </p>
-        <h3>Algorithm</h3>
-        <p>
-            To find the minimal Bulgarian path from u to v, we run the Bellman-Ford algorithm on G' starting from u<sub>white</sub>.
-            Since we assumed there are no negative weight Bulgarian cycles in G, there are no negative weight cycles in G'.
-            Then, we select the minimum distance to v<sub>white</sub>, v<sub>green</sub>, or v<sub>red</sub>.
-        </p>
-        <h3>Time Complexity</h3>
-        <p>
-            The time complexity is the same as running Bellman-Ford on G', which has 3n nodes and m edges. Thus, the running time is O(nm).
-        </p>
-    </section>
+            <h3>Complexity</h3>
+            <p>Same as Bellman‑Ford on G' (3n nodes, m edges): O(nm).</p>
+        </article>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Connor Sicheri. All Rights Reserved.</p>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
     </footer>
+    <script src="../assets/js/theme.js"></script>
 </body>
 </html>

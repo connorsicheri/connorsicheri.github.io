@@ -3,35 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Connor Sicheri</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Blog — Connor Sicheri</title>
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Connor Sicheri</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </nav>
+        <div class="container nav">
+            <div class="brand"><a href="index.html">Connor Sicheri</a></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-switch" aria-label="Toggle color theme" data-theme-toggle>
+                    <span class="icon sun" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-8h-2v3h2V5zm7.66 1.66l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM17 13h3v-2h-3v2zm-5 6h2v-3h-2v3zm-7.66-.66l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zM12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </span>
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="icon moon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 00-1.05-.14 8 8 0 01-10.45-10.45 1 1 0 00-1.19-1.33A10 10 0 1022 14.19a1 1 0 00-.36-1.19z"/></svg>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <section class="section">
-        <h2>Blog</h2>
-        <ul>
-            <li><a href="blogs/shortest_path_reduction.html">A Modified Shortest Path Problem</a></li>
-            <li><a href="#">Blog Post 2</a></li>
-            <li><a href="#">Blog Post 3</a></li>
-        </ul>
-    </section>
+    <main class="container">
+        <section class="section">
+            <div class="section-title">Writing</div>
+            <div class="grid">
+                <div class="card">
+                    <h3><a href="blogs/shortest_path_reduction.html">A Modified Shortest Path Problem</a></h3>
+                    <p>Graph transformation approach for a constrained shortest path variant, with proofs and visuals.</p>
+                </div>
+                <div class="card">
+                    <h3>On small tools and leverage</h3>
+                    <p>Notes on building focused tools with compounding impact. (Coming soon)</p>
+                </div>
+                <div class="card">
+                    <h3>Runtime notes</h3>
+                    <p>Scheduling, fairness, and performance under contention. (Coming soon)</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Connor Sicheri. All Rights Reserved.</p>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
     </footer>
+    <script src="assets/js/theme.js"></script>
 </body>
 </html>

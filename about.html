@@ -3,40 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Connor Sicheri</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>About — Connor Sicheri</title>
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Connor Sicheri</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </nav>
+        <div class="container nav">
+            <div class="brand"><a href="index.html">Connor Sicheri</a></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-switch" aria-label="Toggle color theme" data-theme-toggle>
+                    <span class="icon sun" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-8h-2v3h2V5zm7.66 1.66l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM17 13h3v-2h-3v2zm-5 6h2v-3h-2v3zm-7.66-.66l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zM12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </span>
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="icon moon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 00-1.05-.14 8 8 0 01-10.45-10.45 1 1 0 00-1.19-1.33A10 10 0 1022 14.19a1 1 0 00-.36-1.19z"/></svg>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <section class="section">
-        <h2>About Me</h2>
-        <p>I'm Connor Sicheri, a Computer Science and Mathematics student at the University of Toronto. With a strong background in machine learning, computational biology, and systems programming, I've worked on protein design using deep learning, user-level threading libraries, and custom file systems. I thrive on solving complex problems and optimizing performance in high-performance computing environments.
+    <main class="container">
+        <section class="section">
+            <div class="about-header">
+                <img class="avatar" src="images/face.jpeg" alt="Connor portrait" />
+                <div>
+                    <h1>About Me</h1>
+                    <p>I'm Connor Sicheri, studying Computer Science and Mathematics at the University of Toronto. I like building performant systems and useful applied ML. I’ve worked on protein design with deep learning, user‑level threading libraries, and custom filesystems.</p>
+                </div>
+            </div>
+            <div class="timeline">
+                <div class="item">
+                    <h4>Research — ML for Protein Engineering</h4>
+                    <p>Exploring sequence design and structure prediction workflows; evaluating stability and activity in‑silico.</p>
+                </div>
+                <div class="item">
+                    <h4>Systems — Runtimes and Storage</h4>
+                    <p>Implemented user‑level threading primitives and a simple filesystem; focused on contention, scheduling and durability.</p>
+                </div>
+            </div>
+        </section>
 
-            Beyond academics, I love hiking and adventuring—whether it's exploring new trails or tackling technical challenges.</p>
-    </section>
-
-    <!-- Image Gallery -->
-    <div class="image-gallery">
-        <img src="images/hiking.jpeg" alt="Hiking Banff">
-        <img src="images/face.jpeg" alt="Me and Mom!">
-        <img src="images/bridge.jpeg" alt="Coppenhagen">
-    </div>
+        <section class="section">
+            <div class="section-title">Life outside code</div>
+            <div class="gallery-inline">
+                <figure>
+                    <img src="images/hiking.jpeg" alt="Banff trail ridge">
+                </figure>
+                <figure>
+                    <img src="images/bridge.jpeg" alt="Copenhagen bridge at dusk">
+                </figure>
+            </div>
+            <p class="gallery-caption">Long ridge days in Banff and golden hour rides across Copenhagen’s bridges—resetting the mind with altitude, maps, and windy waterfronts.</p>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Connor Sicheri. All Rights Reserved.</p>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
     </footer>
+    <script src="assets/js/theme.js"></script>
 </body>
 </html>
