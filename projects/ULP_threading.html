@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre‑emptive User‑Level Threading — Project</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <meta name="description" content="A pre‑emptive user‑level threading library in C with timer interrupts and scheduler.">
+    <meta property="og:title" content="Pre‑emptive User‑Level Threading">
+    <meta property="og:description" content="A lightweight C runtime: timer‑driven preemption, scheduler, sync primitives.">
+    <meta property="og:image" content="../images/preemptive_threading.png">
+    <meta property="og:type" content="article">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Connor Sicheri">
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand"><a href="../index.html">Connor Sicheri</a></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../projects.html">Projects</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-switch" aria-label="Toggle color theme" data-theme-toggle>
+                    <span class="icon sun" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-8h-2v3h2V5zm7.66 1.66l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM17 13h3v-2h-3v2zm-5 6h2v-3h-2v3zm-7.66-.66l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zM12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </span>
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="icon moon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 00-1.05-.14 8 8 0 01-10.45-10.45 1 1 0 00-1.19-1.33A10 10 0 1022 14.19a1 1 0 00-.36-1.19z"/></svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <article class="prose section">
+            <h1 class="mono">Pre‑emptive User‑Level Threading Library in C</h1>
+            <p>A lightweight runtime that multiplexes many user threads on a single OS thread using <strong>timer interrupts</strong> for preemption and a compact <strong>scheduler</strong> with cooperative fallbacks.</p>
+
+            <div class="image-gallery">
+                <img src="../images/preemptive_threading.png" alt="Pre‑emptive user‑level threading diagram">
+            </div>
+
+            <h2 class="mono">Threads 101: purpose and performance</h2>
+            <p><strong>Threads</strong> are independent sequences of execution within a process that share the same address space. They enable concurrency: overlapping I/O with CPU work, structuring programs as pipelines, and utilizing multiple cores.</p>
+            <ul>
+                <li><strong>Latency hiding</strong>: while one thread blocks on I/O, others make progress.</li>
+                <li><strong>Parallelism</strong>: on multi‑core CPUs, threads can run truly in parallel.</li>
+                <li><strong>Throughput</strong>: more outstanding work in flight increases pipeline utilization.</li>
+                <li><strong>Responsiveness</strong>: UI/network services stay reactive by offloading work.</li>
+            </ul>
+            <p>Performance hinges on <strong>lightweight context switches</strong>, low contention synchronization, and avoiding blocking calls that stall the whole runtime.</p>
+
+            <h2 class="mono">User‑level vs Kernel threads</h2>
+            <ul>
+                <li><strong>Kernel threads (KLT)</strong>: managed by the OS scheduler; each thread is known to the kernel. Pros: preemption, true multi‑core usage, good integration with blocking I/O. Cons: higher creation/switch overhead, limited policy control.</li>
+                <li><strong>User‑level threads (ULT)</strong>: scheduled in user space by a library/runtime; the kernel sees one or few threads. Pros: <strong>very fast</strong> creation/switch, custom scheduling policies, minimal syscalls. Cons: a blocking syscall can stall the whole process unless avoided; integration with signals/IO requires care.</li>
+                <li><strong>This project</strong>: ULT with <strong>pre‑emption</strong> added using signals/timers, closing the gap with KLT responsiveness while preserving ULT performance.</li>
+            </ul>
+
+            <h2 class="mono">Architecture overview</h2>
+            <ul>
+                <li><strong>Timer‑driven preemption</strong>: a periodic <code>SIGALRM</code> from <code>setitimer(ITIMER_REAL,...)</code> triggers a handler that saves the current thread context and dispatches the scheduler.</li>
+                <li><strong>Context switching</strong>: implemented with <code>ucontext</code> or <code>setjmp/longjmp</code> to swap stacks and registers for runnable threads.</li>
+                <li><strong>Scheduler</strong>: round‑robin across a <strong>ready queue</strong>; critical sections mask preemption to maintain invariants; cooperative <code>ulp_yield()</code> is still available.</li>
+                <li><strong>Synchronization</strong>: user‑space mutexes and condition variables; threads park on wait lists and are woken by the unlock/signal path.</li>
+                <li><strong>Sleep queues</strong>: timed waits and condition sleeps place threads on per‑object queues with metadata for wakeup and deadlock checks.</li>
+                <li><strong>I/O</strong>: prefer non‑blocking I/O or hand‑off to a helper to avoid stalling the single kernel thread.</li>
+            </ul>
+
+            <h2 class="mono">Deadlock resistance via sleep‑queue search</h2>
+            <p>To reduce deadlock risk, the runtime maintains <strong>ownership</strong> and <strong>wait‑for</strong> relations. On <code>lock()</code> or <code>wait()</code>, we consult sleep queues to detect cycles and apply strategies:</p>
+            <ul>
+                <li><strong>Try‑lock fallback</strong>: if a potential cycle is detected, back off and yield before retrying.</li>
+                <li><strong>Timeouts</strong>: timed waits prevent indefinite blocking; timed‑out threads are removed from queues and rescheduled.</li>
+                <li><strong>Wound‑wait heuristic</strong>: older threads can preempt younger ones’ claims by forcing them to yield/wait, breaking cycles in practice.</li>
+            </ul>
+            <p>Operationally, this is a light <em>wait‑for graph</em> derived from <strong>sleep queues</strong> and mutex ownership; we scan the target queue and owners to see if the requesting thread is indirectly waiting on itself. If so, we avoid enqueuing and choose a non‑blocking action (yield/backoff).</p>
+
+            <h2 class="mono">Implementation notes</h2>
+            <ul>
+                <li><strong>Signal safety</strong>: the handler only flips minimal state and schedules; complex logic runs on thread stacks after returning into the scheduler.</li>
+                <li><strong>Preemption masking</strong>: entering critical sections masks <code>SIGALRM</code>; leaving unmasks and checks for a pending reschedule.</li>
+                <li><strong>Fairness</strong>: each tick advances the run queue; voluntary yields don’t starve others.</li>
+                <li><strong>Extensibility</strong>: hooks for priorities and work‑stealing queues for future multi‑kernel‑thread variants (M:N).</li>
+            </ul>
+
+            <h2 class="mono">API sketch</h2>
+            <pre class="code-card"><code>
+// thread.h (to be filled in)
+int ulp_init(int hz);
+int ulp_spawn(void (*fn)(void*), void *arg, size_t stack_size);
+void ulp_yield(void);
+void ulp_mutex_lock(ulp_mutex_t *m);
+void ulp_mutex_unlock(ulp_mutex_t *m);
+            </code></pre>
+
+            <h2 class="mono">Notes to fill in</h2>
+            <ul>
+                <li>Design decisions: preemption granularity, signal safety, critical section strategy.</li>
+                <li>Benchmarks: context‑switch latency, scheduler fairness, scalability under contention.</li>
+                <li>Limitations: signal interactions with libc, blocking syscalls, portability.</li>
+                <li>Examples: thread ping‑pong, producer/consumer, timer‑heavy workloads.</li>
+            </ul>
+
+            <h2 class="mono">Images</h2>
+            <p>Using the added diagram above; can add traces/plots later.</p>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
+    </footer>
+    <script src="../assets/js/theme.js"></script>
+</body>
+</html>
+
+
