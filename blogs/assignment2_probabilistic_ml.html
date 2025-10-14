@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probabilistic ML — Assignment 2</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand"><a href="../index.html">Connor Sicheri</a></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../projects.html">Projects</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-switch" aria-label="Toggle color theme" data-theme-toggle>
+                    <span class="icon sun" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-8h-2v3h2V5zm7.66 1.66l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM17 13h3v-2h-3v2zm-5 6h2v-3h-2v3zm-7.66-.66l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zM12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </span>
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="icon moon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 00-1.05-.14 8 8 0 01-10.45-10.45 1 1 0 00-1.19-1.33A10 10 0 1022 14.19a1 1 0 00-.36-1.19z"/></svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <article class="prose section">
+            <h1 class="mono">Probabilistic ML: Assignment 2</h1>
+            <p>Notes and results from coursework exploring <strong>image denoising</strong> via iterative belief updates and <strong>Bayesian inference</strong> with MCMC (TrueSkill and Hamiltonian Monte Carlo).</p>
+
+            <h2 class="mono">Q1 — Image Denoising</h2>
+            <p>We implement an iterative <em>update_beliefs</em> routine to denoise a corrupted image under a simple Markov Random Field prior. The goal is to refine pixel posteriors by aggregating local evidence and neighbor influence.</p>
+            <pre class="code-card"><code>
+# call update_beliefs() once
+# (See notebook for full implementation and visualization.)
+            </code></pre>
+
+            <h2 class="mono">Q2 — MCMC in the TrueSkill Model</h2>
+            <p>We infer player skills from match outcomes using Bayesian inference. We compare sampling approaches and visualize posteriors, pairwise skill comparisons, and team rankings.</p>
+
+            <h3 class="mono">Hamiltonian Monte Carlo</h3>
+            <p>We explore HMC hyperparameters and show sample trajectories over a posterior contour for a 2D toy setup before scaling to the TrueSkill setting.</p>
+            <pre class="code-card"><code>
+# Hyperparameters
+# (From the notebook)
+# eps = ...; L = ...
+            </code></pre>
+
+            <h3 class="mono">Team ranking and queries</h3>
+            <p>From posterior samples, we compute mean skills per team, sort, and answer queries like: What is the probability Team A beats Team B? We estimate via Monte Carlo over samples.</p>
+            <pre class="code-card"><code>
+# Estimate P(A beats B) by sampling from posterior skill distributions
+# (See notebook for dataset loading and full pipeline.)
+            </code></pre>
+
+            <h2 class="mono">Takeaways</h2>
+            <ul>
+                <li>Belief propagation style updates can dramatically reduce noise under simple priors.</li>
+                <li>HMC offers efficient exploration of posteriors with tuned steps/trajectory length.</li>
+                <li>Probabilistic ranking models (TrueSkill) provide calibrated comparisons with uncertainty.</li>
+            </ul>
+
+            <p>If you want the full code and figures, open the source notebook: <code>Copy_of_CSC412_2025_Assignment_2.ipynb</code>.</p>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
+    </footer>
+    <script src="../assets/js/theme.js"></script>
+</body>
+</html>
+
+
