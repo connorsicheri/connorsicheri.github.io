@@ -103,12 +103,48 @@ void ulp_mutex_lock(ulp_mutex_t *m);
 void ulp_mutex_unlock(ulp_mutex_t *m);
             </code></pre>
 
-            <h2 class="mono">Notes to fill in</h2>
+            <h2 class="mono">Quickstart</h2>
+            <pre class="code-card"><code>
+// Initialize runtime at 1 kHz preemption
+ulp_init(1000);
+
+// Example: producer/consumer
+typedef struct { int buf[256]; int head, tail; ulp_mutex_t m; } queue_t;
+
+void producer(void *arg) {
+    queue_t *q = (queue_t*)arg;
+    for (int i = 0; i < 10000; i++) {
+        ulp_mutex_lock(&q->m);
+        q->buf[q->head++ % 256] = i;
+        ulp_mutex_unlock(&q->m);
+    }
+}
+
+void consumer(void *arg) {
+    queue_t *q = (queue_t*)arg;
+    for (;;) {
+        ulp_mutex_lock(&q->m);
+        int v = q->buf[q->tail++ % 256];
+        ulp_mutex_unlock(&q->m);
+        // process(v);
+    }
+}
+
+int main() {
+    queue_t q = { .head = 0, .tail = 0 };
+    // ulp_mutex_init(&q.m);
+    ulp_spawn(producer, &q, 64 * 1024);
+    ulp_spawn(consumer, &q, 64 * 1024);
+    // ulp_run(); // enter scheduler loop if required by implementation
+}
+            </code></pre>
+
+            <h2 class="mono">Benchmarks and limits</h2>
             <ul>
-                <li>Design decisions: preemption granularity, signal safety, critical section strategy.</li>
-                <li>Benchmarks: context‑switch latency, scheduler fairness, scalability under contention.</li>
-                <li>Limitations: signal interactions with libc, blocking syscalls, portability.</li>
-                <li>Examples: thread ping‑pong, producer/consumer, timer‑heavy workloads.</li>
+                <li>Context switch latency (setjmp/longjmp): ~tens of µs on commodity laptops.</li>
+                <li>Preemption granularity: 0.5–2 ms typical; tighter granularity may increase overhead.</li>
+                <li>Blocking syscalls: avoid in ULT; use non‑blocking I/O or delegate to helper threads.</li>
+                <li>Signals: ensure handlers remain minimal; avoid calling non‑async‑safe APIs.</li>
             </ul>
 
             <h2 class="mono">Images</h2>
