@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrueSkill via MCMC — A Hands‑On Walkthrough</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand"><a href="../index.html">Connor Sicheri</a></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../projects.html">Projects</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-switch" aria-label="Toggle color theme" data-theme-toggle>
+                    <span class="icon sun" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-8h-2v3h2V5zm7.66 1.66l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM17 13h3v-2h-3v2zm-5 6h2v-3h-2v3zm-7.66-.66l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zM12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </span>
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="icon moon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 00-1.05-.14 8 8 0 01-10.45-10.45 1 1 0 00-1.19-1.33A10 10 0 1022 14.19a1 1 0 00-.36-1.19z"/></svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <article class="prose section">
+            <h1 class="mono">TrueSkill via MCMC — A hands‑on walkthrough</h1>
+            <p>This post walks through building a <strong>TrueSkill</strong> model and performing <strong>MCMC</strong> inference end‑to‑end: from matches → posterior skills → rankings → win‑probability queries. It’s a practical, hands‑on guide.</p>
+
+            <h2 class="mono">1) Problem setup</h2>
+            <p>We observe a set of matches. Each match is between Team A and Team B (one or more players per team) with a binary outcome (A wins vs B wins). Our goal is to infer latent <strong>skill</strong> values for each player and answer queries such as <em>Which team is stronger?</em> or <em>What’s the probability A beats B?</em></p>
+
+            <h2 class="mono">2) Generative model (TrueSkill‑style)</h2>
+            <ul>
+                <li><strong>Prior over skills</strong>: for each player i, <code>s_i ∼ Normal(μ0, σ0²)</code>.</li>
+                <li><strong>Performance</strong>: when a match occurs, player i’s performance is <code>p_i = s_i + ε_i</code> with <code>ε_i ∼ Normal(0, β²)</code>.</li>
+                <li><strong>Team performance</strong>: sums of member performances, e.g. <code>P_A = Σ_{i∈A} p_i</code>, <code>P_B = Σ_{j∈B} p_j</code>.</li>
+                <li><strong>Outcome</strong>: A wins if <code>D = P_A − P_B + ξ &gt; 0</code> where <code>ξ</code> is match noise (probit/logit link; probit keeps everything Gaussian).</li>
+            </ul>
+            <p>This yields a posterior <code>p(s | matches)</code> proportional to the product of win likelihoods and Gaussian priors. Closed forms are messy, so we use MCMC.</p>
+
+            <h2 class="mono">3) Data to factor graph</h2>
+            <p>We construct a sparse <em>design matrix</em> that maps players to teams and matches. For each match m, compute a signed sum of involved player skills to form the difference score <code>Δ_m = Σ s_i − Σ s_j</code>. The likelihood uses <code>Φ(Δ_m / σ)</code> (probit) or <code>σ(Δ_m)</code> (logit).</p>
+            <pre class="code-card"><code>
+# Pseudocode: design rows for match m
+# row[player] = +1 if in Team A; -1 if in Team B; 0 otherwise
+# Δ_m = dot(row, s)
+            </code></pre>
+
+            <h2 class="mono">4) Log posterior and (optional) gradient</h2>
+            <pre class="code-card"><code>
+# log posterior up to a constant (probit)
+logp(s) = Σ_m log Φ(y_m * Δ_m / σ)  +  Σ_i log N(s_i; μ0, σ0²)
+
+# If using a logistic link, replace Φ with sigmoid σ(x) = 1/(1+e^{-x}).
+# Gradients can be derived analytically or computed via autodiff.
+            </code></pre>
+
+            <h2 class="mono">5) Samplers</h2>
+            <ul>
+                <li><strong>Random‑walk Metropolis</strong>: simple, but tuning‑heavy and mixes slowly in correlated posteriors.</li>
+                <li><strong>Preconditioned Metropolis</strong>: scale proposals by player frequency to improve acceptance.</li>
+                <li><strong>Hamiltonian Monte Carlo (HMC)</strong>: uses gradients to explore <em>along</em> posterior contours; higher effective sample sizes per step.</li>
+            </ul>
+
+            <h3 class="mono">HMC step (conceptual)</h3>
+            <pre class="code-card"><code>
+# s: current skills (vector), U(s) = -logp(s)
+# L leapfrog steps of size ε
+v ~ Normal(0, I)
+(s', v') = Leapfrog(s, v, ε, L, ∇U)
+accept with prob min(1, exp(H(s,v) - H(s',v')))
+            </code></pre>
+            <p>Start with small <code>ε</code> and moderate <code>L</code>. Target an acceptance rate around 0.6–0.8; adapt <code>ε</code> during warm‑up.</p>
+
+            <h2 class="mono">6) From samples to insights</h2>
+            <ul>
+                <li><strong>Player/Team rankings</strong>: rank by posterior mean skill; report uncertainty with credible intervals.</li>
+                <li><strong>Win probabilities</strong>: to estimate <code>P(A beats B)</code>, draw s from the chain and compute <code>Δ = Σ_{i∈A}s_i − Σ_{j∈B}s_j</code>; with probit, <code>P = Φ(Δ/σ)</code>. Average over samples.</li>
+            </ul>
+            <pre class="code-card"><code>
+# Monte Carlo query
+probs = []
+for s in samples:
+    delta = sum(s[i] for i in teamA) - sum(s[j] for j in teamB)
+    probs.append(Phi(delta / sigma))   # or sigmoid(delta) for logit
+P_A_beats_B = mean(probs)
+            </code></pre>
+
+            <h2 class="mono">7) Diagnostics</h2>
+            <ul>
+                <li><strong>Trace plots</strong>: look for stationarity and mixing across players.</li>
+                <li><strong>Autocorrelation / ESS</strong>: thin only if needed; prefer better tuning.</li>
+                <li><strong>R‑hat</strong>: run multiple chains and check convergence (<code>≈1.0</code>).</li>
+            </ul>
+
+            <h2 class="mono">8) Practical tips</h2>
+            <ul>
+                <li>Center skills at the prior mean to improve numerical stability.</li>
+                <li>Use a smaller <code>β</code> (performance noise) when matches are decisive; larger when volatile.</li>
+                <li>Precompute <code>Δ_m</code> with sparse ops; gradients become cheap matrix‑vector products.</li>
+            </ul>
+
+            
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
+    </footer>
+    <script src="../assets/js/theme.js"></script>
+</body>
+</html>
+
+

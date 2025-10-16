@@ -36,24 +36,32 @@
     <main class="container">
         <article class="prose section">
             <h1 class="mono">A Modified Shortest Path Problem</h1>
-            <h2 class="mono">Preface</h2>
-            <p>A constrained variant and a reduction strategy back to classic shortest path.</p>
+            <h2 class="mono">Why this is interesting</h2>
+            <p>Alternation constraints show up in routing with service classes (e.g., white→green→red lanes), workflow pipelines where resources must be used in order, and games where moves alternate across types. Rather than invent a new algorithm, we can <em>reduce</em> the problem to a classic shortest path on a slightly larger graph. This keeps the solution simple, correct, and efficient.</p>
 
             <h2 class="mono">Problem</h2>
-            <p>Directed G=(V,E), w(e), c(e)∈{W,G,R}; alternate W→G→R; compute δ_BG(s,u).</p>
+            <p>We are given a directed graph <code>G=(V,E)</code> with non‑negative weights <code>w(e)</code> and a color on each vertex <code>c(v) ∈ {W, G, R}</code>. We want a shortest path that <strong>starts on white</strong> and strictly <strong>alternates colors W→G→R→W→…</strong> at each step. Let <code>δ_BG(s, u)</code> denote the constrained shortest distance from <code>s</code> to <code>u</code> under this rule.</p>
 
             <h2 class="mono">Solution sketch</h2>
-            <p>Transform to layered G'; run Bellman‑Ford; take min over target layers.</p>
+            <p>Construct a layered graph <code>G'</code> with three copies of <code>V</code>: <code>V_W, V_G, V_R</code>. A node <code>v</code> appears as <code>v^W, v^G, v^R</code>, representing “arrive with next required color W/G/R”. For every edge <code>(u→v)</code> in <code>G</code> and for every layer <code>X</code>, add an edge from <code>u^X → v^Y</code> if <code>c(v) = Y</code> and <code>Y</code> is the next color after <code>X</code> in the cycle W→G→R→W. Give it the same weight <code>w(u,v)</code>. Now any path in <code>G'</code> corresponds to an alternating‑color path in <code>G</code>.</p>
+            <p>Initialize at <code>s^W</code> (we must visit a white node first). Run any single‑source shortest path algorithm appropriate for weights—Dijkstra if non‑negative (typical), otherwise Bellman‑Ford. The constrained distance is <code>δ_BG(s, u) = min{ dist(u^W), dist(u^G), dist(u^R) }</code>.</p>
             <div class="image-gallery">
                 <img src="../images/original_graph.png" alt="Original Graph">
                 <img src="../images/transformed_graph.png" alt="Transformed Graph">
             </div>
 
-            <h3 class="mono">Theorem</h3>
-            <p>Paths starting at a white node in G' correspond 1‑to‑1 to alternating paths in G.</p>
+            <h3 class="mono">Correctness</h3>
+            <p><strong>Claim.</strong> Paths from <code>s^W</code> to any <code>u^*</code> in <code>G'</code> correspond 1‑to‑1 with paths in <code>G</code> that start on white and alternate colors. The layer index enforces which color must be visited next, so every step is legal, and every legal alternating step has a corresponding edge in <code>G'</code>. Edge weights are preserved, so path weights match.</p>
 
             <h3 class="mono">Complexity</h3>
-            <p>Same as Bellman‑Ford on G' (3n nodes, m edges): O(nm).</p>
+            <p><code>G'</code> has <code>3|V|</code> nodes and at most <code>3|E|</code> edges. Complexity matches your SSSP choice on <code>G'</code> (e.g., Dijkstra: <code>O((|V|+|E|) log |V|)</code> up to constants; Bellman‑Ford: <code>O(|V||E|)</code>).</p>
+            
+            <h2 class="mono">Takeaways</h2>
+            <ul>
+                <li><strong>Modeling trick</strong>: encode constraints via state (layers), not custom algorithms.</li>
+                <li><strong>Reusability</strong>: leverages standard SSSP routines for constrained problems.</li>
+                <li><strong>Extensibility</strong>: alternation over k colors → k layers; other constraints fit similar automata‑style constructions.</li>
+            </ul>
         </article>
     </main>
 

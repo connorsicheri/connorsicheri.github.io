@@ -46,8 +46,8 @@
     <section class="hero">
         <div class="content">
             <div>
-                <h1 class="title mono">Building intelligent systems at the intersection of ML, systems, and computational biology.</h1>
-                <p class="subtitle">Designing models and infrastructure, from protein engineering to high‑performance runtimes.</p>
+                <h1 class="title mono">AI engineer and systems designer building reliable, high‑performance software.</h1>
+                <p class="subtitle">Designing agents, runtimes, and infrastructure — from research to production.</p>
                 <div class="actions">
                     <a class="btn primary" href="projects.html">View Projects</a>
                     <a class="btn" href="about.html">About Me</a>
@@ -62,7 +62,7 @@
     <section class="section">
         <div class="section-title">Featured Projects</div>
         <div class="grid">
-            <div class="card">
+            <div class="card" data-href="projects/PETase_redesign.html">
                 <img class="thumb" src="images/petase_poster.jpg" alt="PETase redesign" />
                 <h3>PETase Redesign</h3>
                 <p class="comment-line">ML-guided sequence optimization for a PET-degrading enzyme.</p>
@@ -71,42 +71,83 @@
                     <span class="tag">Deep Learning</span>
                 </div>
                 <div class="links">
-                    <a href="projects/PETase_redesign.html">Details</a>
+                    <a href="projects/PETase_redesign.html" data-no-card-click>Details</a>
                 </div>
             </div>
-            <div class="card">
-                <img class="thumb" src="images/transformed_graph.png" alt="Shortest path reduction" />
-                <h3>Graph Reduction for Shortest Path Variants</h3>
-                <p class="comment-line">Problem transform + proof sketch for constrained shortest path.</p>
+            <div class="card" data-href="projects/agentic_jira_parser.html">
+                <img class="thumb contain" src="images/agentic-ai.png" alt="Agentic Jira parser" />
+                <h3>Agentic Jira Parser & PR Creator</h3>
+                <p class="comment-line">Parse tickets, plan edits, open PRs autonomously.</p>
                 <div class="tags">
-                    <span class="tag">Algorithms</span>
-                    <span class="tag">Theory</span>
+                    <span class="tag">Agents</span>
+                    <span class="tag">DevTools</span>
                 </div>
                 <div class="links">
-                    <a href="blogs/shortest_path_reduction.html">Read Post</a>
+                    <a href="projects/agentic_jira_parser.html" data-no-card-click>Details</a>
                 </div>
             </div>
-            <div class="card">
-                <img class="thumb" src="images/original_graph.png" alt="Systems image" />
-                <h3>Systems and Runtimes</h3>
-                <p class="comment-line">User-level threading + filesystem experiments; focus: contention.</p>
+            <div class="card" data-href="projects/ULP_threading.html">
+                <img class="thumb contain" src="images/preemptive_threading.png" alt="Pre‑emptive threading" />
+                <h3>Pre‑emptive User‑Level Threading (C)</h3>
+                <p class="comment-line">Timer-driven preemption, scheduler, and sync primitives.</p>
                 <div class="tags">
-                    <span class="tag">C/C++</span>
+                    <span class="tag">C</span>
                     <span class="tag">OS</span>
                 </div>
                 <div class="links">
-                    <a href="projects.html">More</a>
+                    <a href="projects/ULP_threading.html" data-no-card-click>Details</a>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="section">
+        <div class="section-title">Skills</div>
+        <div class="tags" style="gap:10px;">
+            <span class="tag">AI Agents</span>
+            <span class="tag">LLM Apps</span>
+            <span class="tag">MLOps</span>
+            <span class="tag">Distributed Systems</span>
+            <span class="tag">Runtimes</span>
+            <span class="tag">C/C++</span>
+            <span class="tag">Python</span>
+            <span class="tag">Rust</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">AWS</span>
+            <span class="tag">GCP</span>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-title">Highlights</div>
+        <div class="grid">
+            <div class="card" data-href="projects/agentic_jira_parser.html">
+                <h3 class="mono"><a href="projects/agentic_jira_parser.html" data-no-card-click>Agentic Jira → PR Automation</a></h3>
+                <p class="comment-line">Reduced PR prep time by turning Jira tickets into ready‑to‑merge branches with structured plans and guardrails.</p>
+            </div>
+            <div class="card" data-href="projects/ULP_threading.html">
+                <h3 class="mono"><a href="projects/ULP_threading.html" data-no-card-click>Pre‑emptive User‑Level Threads</a></h3>
+                <p class="comment-line">Timer‑driven preemption and user‑space sync primitives for high‑throughput runtimes in C.</p>
+            </div>
+            <div class="card" data-href="projects/PETase_redesign.html">
+                <h3 class="mono"><a href="projects/PETase_redesign.html" data-no-card-click>ML for Protein Engineering</a></h3>
+                <p class="comment-line">Redesigned PETase variants with sequence models and structure prediction to improve properties.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
         <div class="section-title">Latest Writing</div>
-        <div class="code-card"><code>
-<span class="tok-com">// recent</span>
-<span class="tok-kw">post</span> <span class="tok-id">A_Modified_Shortest_Path_Problem</span><span class="tok-op">()</span> <span class="tok-op">=&gt;</span> <span class="tok-str">"graph transform + proof sketch"</span>
-        </code></div>
+        <div class="grid">
+            <div class="card">
+                <h3><a href="blogs/shortest_path_reduction.html">A Modified Shortest Path Problem</a></h3>
+                <p class="comment-line">Graph transform for constrained shortest path; proofs + visuals.</p>
+            </div>
+            <div class="card" data-href="blogs/trueskill_mcmc_walkthrough.html">
+                <h3><a href="blogs/trueskill_mcmc_walkthrough.html" data-no-card-click>TrueSkill via MCMC — A Hands‑On Walkthrough</a></h3>
+                <p class="comment-line">From matches to posterior skills, rankings, and win odds.</p>
+            </div>
+        </div>
     </section>
     <div class="spacer"></div>
 </main>

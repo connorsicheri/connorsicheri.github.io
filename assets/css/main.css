@@ -163,7 +163,12 @@ nav a:hover { background: var(--nav-hover-bg); }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
 .card { background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); transition: 220ms ease; }
 .card:hover { transform: translateY(-4px); }
+.card-clickable { cursor: pointer; }
+.card-clickable:hover { border-color: var(--primary-2); }
+.card-clickable:focus-visible { outline: 2px solid var(--primary-2); outline-offset: 3px; }
 .card img.thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 12px; }
+.card img.thumb.top { object-position: top center; }
+.card img.thumb.contain { object-fit: contain; object-position: center; padding: 8px; background: var(--bg-elev); }
 .card { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
 .card h3 { font-size: 18px; margin-bottom: 6px; color: var(--tok-id); overflow-wrap: anywhere; word-break: break-word; }
 .card p { color: var(--text); font-size: 14px; overflow-wrap: anywhere; word-break: break-word; }
