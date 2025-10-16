@@ -36,7 +36,7 @@
     <main class="container">
         <article class="prose section">
             <h1 class="mono">TrueSkill via MCMC — A hands‑on walkthrough</h1>
-            <p>This post walks through building a <strong>TrueSkill</strong> model and performing <strong>MCMC</strong> inference end‑to‑end: from matches → posterior skills → rankings → win‑probability queries. It’s a practical guide distilled from Assignment 2 (Q2).</p>
+            <p>This post walks through building a <strong>TrueSkill</strong> model and performing <strong>MCMC</strong> inference end‑to‑end: from matches → posterior skills → rankings → win‑probability queries. It’s a practical, hands‑on guide.</p>
 
             <h2 class="mono">1) Problem setup</h2>
             <p>We observe a set of matches. Each match is between Team A and Team B (one or more players per team) with a binary outcome (A wins vs B wins). Our goal is to infer latent <strong>skill</strong> values for each player and answer queries such as <em>Which team is stronger?</em> or <em>What’s the probability A beats B?</em></p>
@@ -112,7 +112,7 @@ P_A_beats_B = mean(probs)
                 <li>Precompute <code>Δ_m</code> with sparse ops; gradients become cheap matrix‑vector products.</li>
             </ul>
 
-            <p>For complete code and figures, see the source notebook: <code>Copy_of_CSC412_2025_Assignment_2.ipynb</code>. This page focuses on the <em>Q2 MCMC</em> portion as a practical walkthrough.</p>
+            
         </article>
     </main>
 
