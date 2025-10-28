@@ -244,6 +244,12 @@ footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted)
 /* Shared caption below gallery */
 .gallery-caption { margin-top: 10px; color: var(--muted); font-size: 14px; text-align: center; }
 
+/* PDF viewer */
+.pdf-frame { width: 100%; height: 780px; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); background: var(--bg-elev); }
+.pdf-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+.pdf-actions a { text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; color: var(--text); font-weight: 600; }
+.pdf-actions a:hover { background: var(--nav-hover-bg); }
+
 @media (max-width: 860px) {
     .hero .content { grid-template-columns: 1fr; text-align: center; }
     .about-header { grid-template-columns: 1fr; text-align: center; }
