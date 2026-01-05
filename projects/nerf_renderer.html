@@ -44,11 +44,15 @@
             <h1 class="mono">Neural Radiance Fields (NeRF) Renderer</h1>
             <p>A complete PyTorch implementation of NeRF for <strong>3D scene reconstruction</strong> and <strong>novel-view synthesis</strong>, producing photorealistic renders from arbitrary viewpoints.</p>
 
+            <div class="image-gallery" style="margin: 24px 0;">
+                <img src="../images/nerf_title.jpeg" alt="NeRF rendered scene" style="border-radius: 8px;">
+            </div>
+
             <h2 class="mono">Demo Video</h2>
             <p style="margin-bottom: 12px;"><em>Novel-view synthesis after only 2000 iterations on a small architecture:</em></p>
             <div class="video-container" style="max-width: 800px; margin: 0 auto;">
-                <video controls style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                    <source src="../videos/lego.mp4" type="video/mp4">
+                <video controls preload="metadata" playsinline muted loop style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <source src="/videos/lego.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
