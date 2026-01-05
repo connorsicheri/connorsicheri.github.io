@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Radiance Fields (NeRF) Renderer — Project</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <meta name="description" content="A complete NeRF implementation for 3D scene reconstruction and novel-view synthesis.">
+    <meta property="og:title" content="Neural Radiance Fields (NeRF) Renderer">
+    <meta property="og:description" content="End-to-end NeRF pipeline for photorealistic 3D scene rendering.">
+    <meta property="og:type" content="article">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Connor Sicheri">
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand"><a href="../index.html">Connor Sicheri</a></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../projects.html">Projects</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-switch" aria-label="Toggle color theme" data-theme-toggle>
+                    <span class="icon sun" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-8h-2v3h2V5zm7.66 1.66l-1.41-1.41-1.8 1.79 1.42 1.42 1.79-1.8zM17 13h3v-2h-3v2zm-5 6h2v-3h-2v3zm-7.66-.66l1.41 1.41 1.8-1.79-1.42-1.42-1.79 1.8zM12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </span>
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="icon moon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.64 13a1 1 0 00-1.05-.14 8 8 0 01-10.45-10.45 1 1 0 00-1.19-1.33A10 10 0 1022 14.19a1 1 0 00-.36-1.19z"/></svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <article class="prose section">
+            <h1 class="mono">Neural Radiance Fields (NeRF) Renderer</h1>
+            <p>A complete PyTorch implementation of NeRF for <strong>3D scene reconstruction</strong> and <strong>novel-view synthesis</strong>, producing photorealistic renders from arbitrary viewpoints.</p>
+
+            <h2 class="mono">Demo Video</h2>
+            <div class="video-container">
+                <!-- TODO: Add video here -->
+                <p style="text-align:center; padding: 60px 20px; background: var(--bg-alt); border-radius: 8px;">
+                    <em>Video coming soon</em>
+                </p>
+            </div>
+
+            <h2 class="mono">Overview</h2>
+            <p>Neural Radiance Fields (NeRF) represent a scene as a continuous 5D function that maps spatial coordinates (x, y, z) and viewing direction (θ, φ) to <strong>color (RGB)</strong> and <strong>volume density (σ)</strong>. By training an MLP on multiple 2D images of a scene, we can synthesize photorealistic novel views from any camera position.</p>
+
+            <h2 class="mono">Technical Approach</h2>
+            <p>The pipeline consists of several key components:</p>
+            <ul>
+                <li><strong>Camera Model</strong>: Ray generation using intrinsic and extrinsic parameters</li>
+                <li><strong>Stratified Sampling</strong>: Sampling points along each ray with positional encoding</li>
+                <li><strong>Neural Network</strong>: MLP predicting RGB + density for each 3D point</li>
+                <li><strong>Volume Rendering</strong>: Differentiable rendering equation for pixel color integration</li>
+                <li><strong>Optimization</strong>: Supervised training with photometric loss</li>
+            </ul>
+
+            <h2 class="mono">Ray Generation</h2>
+            <p>Each pixel in the training image corresponds to a ray cast from the camera center through the image plane. Given camera intrinsics (focal length, principal point) and extrinsics (rotation, translation), we compute:</p>
+            <pre class="code-card"><code>
+# Generate rays for each pixel
+def get_rays(H, W, focal, c2w):
+    i, j = torch.meshgrid(
+        torch.arange(W), 
+        torch.arange(H), 
+        indexing='xy'
+    )
+    
+    # Pixel coordinates to camera coordinates
+    dirs = torch.stack([
+        (i - W/2) / focal,
+        -(j - H/2) / focal,
+        -torch.ones_like(i)
+    ], dim=-1)
+    
+    # Rotate ray directions from camera to world frame
+    rays_d = torch.sum(dirs[..., None, :] * c2w[:3, :3], dim=-1)
+    rays_o = c2w[:3, -1].expand(rays_d.shape)
+    
+    return rays_o, rays_d
+            </code></pre>
+
+            <h2 class="mono">Positional Encoding</h2>
+            <p>MLPs struggle to learn high-frequency functions. We use <strong>positional encoding</strong> to map input coordinates to a higher-dimensional space using sinusoidal functions:</p>
+            <pre class="code-card"><code>
+# Positional encoding: γ(p) = [sin(2^0 π p), cos(2^0 π p), ..., sin(2^L π p), cos(2^L π p)]
+def positional_encoding(x, L=10):
+    encoding = [x]
+    for i in range(L):
+        for fn in [torch.sin, torch.cos]:
+            encoding.append(fn(2.**i * torch.pi * x))
+    return torch.cat(encoding, dim=-1)
+            </code></pre>
+
+            <h2 class="mono">Neural Network Architecture</h2>
+            <p>The NeRF MLP takes encoded 3D position and viewing direction as input and outputs RGB color and volume density:</p>
+            <pre class="code-card"><code>
+class NeRF(nn.Module):
+    def __init__(self, D=8, W=256, input_ch=63, input_ch_views=27):
+        super().__init__()
+        
+        # Position encoding layers
+        self.pts_linears = nn.ModuleList(
+            [nn.Linear(input_ch, W)] + 
+            [nn.Linear(W, W) for i in range(D-1)]
+        )
+        
+        # View-dependent color layers
+        self.views_linears = nn.ModuleList([
+            nn.Linear(input_ch_views + W, W//2)
+        ])
+        
+        # Output layers
+        self.density_linear = nn.Linear(W, 1)
+        self.rgb_linear = nn.Linear(W//2, 3)
+    
+    def forward(self, x):
+        input_pts, input_views = torch.split(x, [63, 27], dim=-1)
+        
+        h = input_pts
+        for i, layer in enumerate(self.pts_linears):
+            h = F.relu(layer(h))
+            if i == 4:  # Skip connection
+                h = torch.cat([h, input_pts], dim=-1)
+        
+        # Density is view-independent
+        density = self.density_linear(h)
+        
+        # RGB is view-dependent
+        h = torch.cat([h, input_views], dim=-1)
+        for layer in self.views_linears:
+            h = F.relu(layer(h))
+        rgb = torch.sigmoid(self.rgb_linear(h))
+        
+        return rgb, density
+            </code></pre>
+
+            <h2 class="mono">Volume Rendering</h2>
+            <p>We integrate color and density along each ray using the <strong>volume rendering equation</strong>:</p>
+            <pre class="code-card"><code>
+# Volume rendering: C(r) = Σ T_i * (1 - exp(-σ_i * δ_i)) * c_i
+# where T_i = exp(-Σ_{j&lt;i} σ_j * δ_j)
+
+def volume_rendering(rgb, density, z_vals, rays_d):
+    # Compute distances between samples
+    dists = z_vals[..., 1:] - z_vals[..., :-1]
+    dists = torch.cat([dists, torch.ones_like(dists[..., :1]) * 1e10], dim=-1)
+    dists = dists * torch.norm(rays_d[..., None, :], dim=-1)
+    
+    # Alpha compositing
+    alpha = 1.0 - torch.exp(-density * dists)
+    
+    # Transmittance
+    T = torch.cumprod(
+        torch.cat([torch.ones_like(alpha[..., :1]), 1.0 - alpha + 1e-10], dim=-1),
+        dim=-1
+    )[..., :-1]
+    
+    # Accumulate colors
+    weights = alpha * T
+    rgb_map = torch.sum(weights[..., None] * rgb, dim=-2)
+    depth_map = torch.sum(weights * z_vals, dim=-1)
+    
+    return rgb_map, depth_map, weights
+            </code></pre>
+
+            <h2 class="mono">Training Loop</h2>
+            <p>The network is trained end-to-end with a simple <strong>photometric loss</strong> between rendered and ground-truth pixel colors:</p>
+            <pre class="code-card"><code>
+# Training
+optimizer = torch.optim.Adam(model.parameters(), lr=5e-4)
+
+for iteration in range(num_iterations):
+    # Sample random rays
+    rays_o, rays_d, target_rgb = get_random_rays(images, poses, H, W, N_rays)
+    
+    # Render
+    rgb_pred, depth_pred, _ = render_rays(model, rays_o, rays_d)
+    
+    # Compute loss
+    loss = F.mse_loss(rgb_pred, target_rgb)
+    
+    # Backprop
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+            </code></pre>
+
+            <h2 class="mono">Results</h2>
+            <ul>
+                <li><strong>Novel-view synthesis</strong>: Generate photorealistic images from arbitrary camera angles</li>
+                <li><strong>Depth estimation</strong>: Produce accurate depth maps for 3D scene understanding</li>
+                <li><strong>High-fidelity reconstruction</strong>: Capture complex geometry, lighting, and view-dependent effects</li>
+                <li><strong>Training efficiency</strong>: Converges in ~100k iterations on a single GPU</li>
+            </ul>
+
+            <h2 class="mono">Key Takeaways</h2>
+            <p>This project demonstrates the power of <strong>implicit neural representations</strong> for 3D reconstruction. By parameterizing a scene as a continuous function rather than discrete voxels or meshes, NeRF achieves unprecedented rendering quality. The implementation covers the full pipeline from camera calibration to differentiable rendering, providing hands-on experience with:</p>
+            <ul>
+                <li>3D computer vision and graphics</li>
+                <li>Differentiable rendering</li>
+                <li>Neural network optimization</li>
+                <li>PyTorch and GPU programming</li>
+            </ul>
+
+            <h2 class="mono">Technologies</h2>
+            <div class="tags" style="gap:10px; margin-top:16px;">
+                <span class="tag">Python</span>
+                <span class="tag">PyTorch</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">3D Reconstruction</span>
+                <span class="tag">Deep Learning</span>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">&copy; 2025 Connor Sicheri. All Rights Reserved.</div>
+    </footer>
+    <script src="../assets/js/theme.js"></script>
+</body>
+</html>
+
