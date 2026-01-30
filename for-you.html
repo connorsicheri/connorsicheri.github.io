@@ -378,6 +378,32 @@
             }
         }
 
+        /* Top music player */
+        .music-top {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .music-hint {
+            font-size: 1rem;
+            color: var(--red);
+            font-weight: 600;
+            margin-bottom: 12px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .spotify-embed-top {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(196, 30, 58, 0.2);
+            border: 3px solid var(--pink-light);
+        }
+
         /* Back link */
         .back-link {
             position: fixed;
@@ -432,6 +458,23 @@
     <div class="hearts-container" id="hearts"></div>
 
     <div class="container">
+        <!-- Music player at the top so it plays while scrolling -->
+        <section class="music-top">
+            <p class="music-hint">hit play first, then scroll down ↓</p>
+            <div class="spotify-embed-top">
+                <iframe 
+                    style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/track/27R1A3WZ5Zv0ywNe0Zunfr?utm_source=generator&theme=0" 
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </section>
+
         <header class="header">
             <span class="big-heart">❤️</span>
             <h1>Happy Birthday!</h1>
@@ -470,25 +513,6 @@
             </div>
         </section>
 
-        <section class="music-section">
-            <div class="music-card">
-                <h3>Hit play 🎵</h3>
-                <p>you know you want to</p>
-                <div class="hearts-divider">♡ ♡ ♡</div>
-                <div class="spotify-embed">
-                    <iframe 
-                        style="border-radius:12px" 
-                        src="https://open.spotify.com/embed/track/2V1TjPD8mcGVL6L9rYTgHC?utm_source=generator&theme=0" 
-                        width="100%" 
-                        height="152" 
-                        frameBorder="0" 
-                        allowfullscreen="" 
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                        loading="lazy">
-                    </iframe>
-                </div>
-            </div>
-        </section>
 
         <section class="reveal-section">
             <div class="reveal-card">
