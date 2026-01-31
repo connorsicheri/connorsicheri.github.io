@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 22nd Birthday! ♡</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red-dark: #8b0a1a;
+            --red: #c41e3a;
+            --red-bright: #e63946;
+            --pink: #ff6b8a;
+            --pink-light: #ffb3c1;
+            --pink-pale: #ffe5ec;
+            --cream: #fff5f7;
+            --white: #ffffff;
+            --gold: #ffd700;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(180deg, var(--pink-pale) 0%, var(--cream) 50%, var(--pink-pale) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--red-dark);
+        }
+
+        /* Heart pattern background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb3c1' opacity='0.3'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            background-size: 60px 60px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Floating hearts container */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            animation: floatUp 6s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header with big heart */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .big-heart {
+            font-size: 80px;
+            display: block;
+            margin-bottom: 10px;
+            animation: heartbeat 1.2s ease-in-out infinite;
+            filter: drop-shadow(0 4px 20px rgba(196, 30, 58, 0.4));
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        .header h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(2.5rem, 10vw, 4rem);
+            color: var(--red);
+            text-shadow: 2px 2px 0 var(--pink-light), 4px 4px 0 rgba(196, 30, 58, 0.1);
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: var(--pink);
+            font-weight: 600;
+        }
+
+        .header .age-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--red), var(--red-bright));
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 8px 24px;
+            border-radius: 50px;
+            margin-top: 16px;
+            box-shadow: 0 4px 20px rgba(196, 30, 58, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(196, 30, 58, 0.4); }
+            50% { box-shadow: 0 4px 40px rgba(196, 30, 58, 0.6); }
+        }
+
+        /* Poem card */
+        .poem-section {
+            margin-bottom: 40px;
+            animation: slideUp 0.8s ease-out 0.3s backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .poem-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 32px;
+            box-shadow: 
+                0 10px 40px rgba(196, 30, 58, 0.15),
+                0 0 0 4px var(--pink-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poem-card::before,
+        .poem-card::after {
+            content: '❤️';
+            position: absolute;
+            font-size: 24px;
+        }
+
+        .poem-card::before {
+            top: 15px;
+            left: 20px;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        .poem-card::after {
+            bottom: 15px;
+            right: 20px;
+            animation: wiggle 2s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .poem-card h2 {
+            font-family: 'Pacifico', cursive;
+            color: var(--red);
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .poem-card p {
+            font-size: 1.15rem;
+            line-height: 2;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--red-dark);
+        }
+
+        .poem-card p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .signature {
+            text-align: center;
+            margin-top: 28px;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.3rem;
+            color: var(--pink);
+        }
+
+        /* Music section */
+        .music-section {
+            margin-bottom: 40px;
+            animation: slideUp 0.8s ease-out 0.5s backwards;
+        }
+
+        .music-card {
+            background: linear-gradient(135deg, var(--red), var(--red-bright));
+            border-radius: 24px;
+            padding: 24px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(196, 30, 58, 0.3);
+        }
+
+        .music-card h3 {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .music-card p {
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .music-card .hearts-divider {
+            font-size: 1.2rem;
+            letter-spacing: 8px;
+            margin-bottom: 16px;
+        }
+
+        .spotify-embed {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Photo memories section */
+        .memories-section {
+            margin-bottom: 50px;
+        }
+
+        .memories-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .memories-header h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: var(--red);
+            margin-bottom: 8px;
+        }
+
+        .memories-header p {
+            color: var(--pink);
+            font-weight: 500;
+        }
+
+        .photo-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .photo-grid.two-col {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .photo-grid.three-col {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .photo-grid.single {
+            grid-template-columns: 1fr;
+        }
+
+        .memory-photo {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.15);
+            border: 3px solid var(--pink-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .memory-photo:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 35px rgba(196, 30, 58, 0.25);
+        }
+
+        .memory-photo.tall {
+            height: 350px;
+        }
+
+        .memory-photo.featured {
+            height: 400px;
+            border-color: var(--red);
+            border-width: 4px;
+        }
+
+        .love-note {
+            background: linear-gradient(135deg, var(--pink-pale), white);
+            border-radius: 20px;
+            padding: 30px 24px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.1);
+            border: 2px solid var(--pink-light);
+            position: relative;
+        }
+
+        .love-note::before {
+            content: '💝';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            background: var(--cream);
+            padding: 0 10px;
+        }
+
+        .love-note p {
+            font-size: 1.2rem;
+            color: var(--red-dark);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .love-note .note-emoji {
+            font-size: 2rem;
+            margin-top: 16px;
+            display: block;
+        }
+
+        .divider-hearts {
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 12px;
+            margin: 40px 0;
+            color: var(--pink);
+        }
+
+        .photo-caption {
+            text-align: center;
+            margin-top: -20px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            color: var(--pink);
+            font-weight: 500;
+        }
+
+        .countdown-card {
+            background: linear-gradient(135deg, var(--red), var(--red-bright));
+            border-radius: 24px;
+            padding: 30px 24px;
+            text-align: center;
+            color: white;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(196, 30, 58, 0.3);
+        }
+
+        .countdown-card h3 {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+
+        .countdown-card p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .memory-polaroid {
+            background: white;
+            padding: 12px 12px 40px 12px;
+            border-radius: 4px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transform: rotate(-2deg);
+            margin: 20px auto;
+            max-width: 300px;
+        }
+
+        .memory-polaroid:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .memory-polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .memory-polaroid .caption {
+            text-align: center;
+            margin-top: 12px;
+            font-family: 'Pacifico', cursive;
+            color: var(--red-dark);
+            font-size: 1rem;
+        }
+
+        .stacked-photos {
+            position: relative;
+            height: 400px;
+            margin: 40px 0;
+        }
+
+        .stacked-photos .memory-photo {
+            position: absolute;
+            width: 70%;
+            height: 280px;
+            left: 50%;
+        }
+
+        .stacked-photos .memory-photo:nth-child(1) {
+            transform: translateX(-50%) rotate(-8deg);
+            z-index: 1;
+        }
+
+        .stacked-photos .memory-photo:nth-child(2) {
+            transform: translateX(-50%) rotate(5deg);
+            z-index: 2;
+            top: 40px;
+        }
+
+        .stacked-photos .memory-photo:nth-child(3) {
+            transform: translateX(-50%) rotate(-3deg);
+            z-index: 3;
+            top: 80px;
+        }
+
+        @media (max-width: 500px) {
+            .photo-grid.three-col {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .memory-photo {
+                height: 180px;
+            }
+
+            .memory-photo.tall {
+                height: 250px;
+            }
+
+            .memory-photo.featured {
+                height: 300px;
+            }
+
+            .stacked-photos {
+                height: 320px;
+            }
+
+            .stacked-photos .memory-photo {
+                width: 85%;
+                height: 220px;
+            }
+        }
+
+        /* Reveal section */
+        .reveal-section {
+            animation: slideUp 0.8s ease-out 0.7s backwards;
+        }
+
+        .reveal-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 
+                0 10px 40px rgba(196, 30, 58, 0.15),
+                0 0 0 4px var(--gold);
+            position: relative;
+        }
+
+        .confetti {
+            position: absolute;
+            font-size: 28px;
+            animation: confettiFall 3s ease-in-out infinite;
+        }
+
+        .confetti:nth-child(1) { top: 10px; left: 10%; animation-delay: 0s; }
+        .confetti:nth-child(2) { top: 5px; left: 30%; animation-delay: 0.5s; }
+        .confetti:nth-child(3) { top: 15px; right: 30%; animation-delay: 1s; }
+        .confetti:nth-child(4) { top: 8px; right: 10%; animation-delay: 1.5s; }
+
+        @keyframes confettiFall {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(10px) rotate(180deg); }
+        }
+
+        .reveal-image {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 30px rgba(196, 30, 58, 0.25);
+            border: 4px solid var(--pink-light);
+        }
+
+        .reveal-card h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: var(--red);
+            margin-bottom: 16px;
+        }
+
+        .reveal-card p {
+            font-size: 1.15rem;
+            color: var(--red-dark);
+            margin-bottom: 12px;
+        }
+
+        .ticket-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--red), var(--pink));
+            color: white;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            box-shadow: 0 6px 30px rgba(196, 30, 58, 0.4);
+            animation: celebratePulse 1.5s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        @keyframes celebratePulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 6px 30px rgba(196, 30, 58, 0.4);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 8px 40px rgba(196, 30, 58, 0.6);
+            }
+        }
+
+        /* Top music player */
+        .music-top {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .music-hint {
+            font-size: 1rem;
+            color: var(--red);
+            font-weight: 600;
+            margin-bottom: 12px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .spotify-embed-top {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(196, 30, 58, 0.2);
+            border: 3px solid var(--pink-light);
+        }
+
+        /* Back link */
+        .back-link {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            color: var(--red);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+            z-index: 100;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        /* Heart rain effect */
+        .heart-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 30px 16px 80px;
+            }
+
+            .poem-card {
+                padding: 32px 20px;
+            }
+
+            .big-heart {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="about.html" class="back-link">← back</a>
+
+    <!-- Floating hearts -->
+    <div class="hearts-container" id="hearts"></div>
+
+    <div class="container">
+        <!-- Music player at the top so it plays while scrolling -->
+        <section class="music-top">
+            <p class="music-hint">hit play first, then scroll down ↓</p>
+            <div class="spotify-embed-top">
+                <iframe 
+                    style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/track/27R1A3WZ5Zv0ywNe0Zunfr?utm_source=generator&theme=0" 
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </section>
+
+        <header class="header">
+            <span class="big-heart">❤️</span>
+            <h1>Birthday Birthday Birthday</h1>
+            <p class="subtitle">Happy birhtday you stinky fartface</p>
+            <div class="age-badge">✨ 22 ✨</div>
+        </header>
+
+        <section class="poem-section">
+            <div class="poem-card">
+                <h2>For You 💕</h2>
+                <p>
+                    You're 22 now, Unc asf.<br>
+                    Still can't believe you picked me.<br>
+                    Out of everyone, somehow it's us<br>
+                    I'm so glad it is.
+                </p>
+                <p>
+                    I love the way you laugh<br>
+                    how you steal my clothes <br>
+                    The way you look at me like I'm not<br>
+                    losing it half the time.
+                    <br>
+                    and I love how you're always there for me.
+                </p>
+                <p>
+                    You make the boring stuff feel fun.<br>
+                    Grocery runs, long drives, doing nothing<br>
+                    it's better when you're there.<br>
+                </p>
+                <p>
+                    So here's to 22 years of jilly vanilli.<br>
+                    Here's to you.<br>
+                    Here's to us, and whatever comes next.<br>
+                    I'm just happy I get to be here for it.
+                </p>
+                <div class="signature">— Connor ♡</div>
+            </div>
+        </section>
+
+        <!-- Photo Memories Section -->
+        <section class="memories-section">
+            <div class="memories-header">
+                <h2>Some of my favorites 📸</h2>
+                <p>keep scrolling...</p>
+            </div>
+
+            <!-- First grid - 2 photos -->
+            <div class="photo-grid two-col">
+                <img src="images/IMG_9248.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_9339.jpg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="love-note">
+                <p>Every moment with you feels like the best one yet.</p>
+                <span class="note-emoji">🥰</span>
+            </div>
+
+            <!-- Featured single photo -->
+            <div class="photo-grid single">
+                <img src="images/IMG_9490.jpg" alt="Us" class="memory-photo featured">
+            </div>
+            <p class="photo-caption">dont call scout stinky</p>
+
+            <div class="divider-hearts">♡ ♡ ♡</div>
+
+            <!-- Three column grid -->
+            <div class="photo-grid three-col">
+                <img src="images/IMG_9492.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_9540.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_9568.jpg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="love-note">
+                <p>I never get tired of making memories with you. Here's to a million more.</p>
+                <span class="note-emoji">💕</span>
+            </div>
+
+            <!-- New photos batch 1 -->
+            <div class="photo-grid two-col">
+                <img src="images/IMG_3403.jpeg" alt="Us" class="memory-photo">
+                <img src="images/IMG_3429.jpeg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="photo-grid single">
+                <img src="images/IMG_3061.jpg" alt="Us" class="memory-photo featured">
+            </div>
+
+            <div class="divider-hearts">💖 💖 💖</div>
+
+            <!-- Two more photos -->
+            <div class="photo-grid two-col">
+                <img src="images/IMG_9573.jpg" alt="Us" class="memory-photo tall">
+                <img src="images/IMG_9662.jpg" alt="Us" class="memory-photo tall">
+            </div>
+
+            <div class="love-note">
+                <p>I could look at pictures of us all day. Actually, I already do.</p>
+                <span class="note-emoji">🫠</span>
+            </div>
+
+            <!-- New photos batch 2 -->
+            <div class="photo-grid three-col">
+                <img src="images/IMG_3515.JPG" alt="Us" class="memory-photo">
+                <img src="images/IMG_4165.JPG" alt="Us" class="memory-photo">
+                <img src="images/IMG_4167.JPG" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="photo-grid two-col">
+                <img src="images/IMG_4218.JPG" alt="Us" class="memory-photo">
+                <img src="images/IMG_4528.jpg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="countdown-card">
+                <h3>22 looks pretty good on you ✨</h3>
+                <p>Just saying.</p>
+            </div>
+
+            <!-- More photos -->
+            <div class="photo-grid single">
+                <img src="images/IMG_5236.jpg" alt="Us" class="memory-photo featured">
+            </div>
+
+            <div class="divider-hearts">💗 💗 💗</div>
+
+            <!-- New photos batch 3 -->
+            <div class="photo-grid three-col">
+                <img src="images/IMG_4542.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_4669.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_5784.JPG" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="love-note">
+                <p>You're my favorite person. Ever. Not even close.</p>
+                <span class="note-emoji">🥹</span>
+            </div>
+
+            <div class="photo-grid two-col">
+                <img src="images/IMG_5810.JPG" alt="Us" class="memory-photo tall">
+                <img src="images/IMG_6127.jpg" alt="Us" class="memory-photo tall">
+            </div>
+
+            <div class="photo-grid single">
+                <img src="images/IMG_7991.jpg" alt="Us" class="memory-photo featured">
+            </div>
+
+            <div class="divider-hearts">♡ ♡ ♡</div>
+
+            <!-- New photos batch 4 -->
+            <div class="photo-grid three-col">
+                <img src="images/IMG_8691.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_8745.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_8829.jpg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="love-note">
+                <p>So much fun with you and we arent even started yet</p>
+                <span class="note-emoji">💭</span>
+            </div>
+
+            <div class="photo-grid two-col">
+                <img src="images/IMG_8872.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_8878.jpg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="photo-grid three-col">
+                <img src="images/IMG_8944.jpg" alt="Us" class="memory-photo">
+                <img src="images/IMG_9097.jpg" alt="Us" class="memory-photo">
+                <img src="images/lp_image.jpg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="divider-hearts">💕 💕 💕</div>
+
+            <div class="love-note">
+                <p>You make everything better. Even the boring stuff.</p>
+                <span class="note-emoji">☺️</span>
+            </div>
+
+            <!-- LP images -->
+            <div class="photo-grid two-col">
+                <img src="images/lp_image_2.jpg" alt="Us" class="memory-photo">
+                <img src="images/lp_image_3.jpg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="photo-grid three-col">
+                <img src="images/lp_image_4.jpg" alt="Us" class="memory-photo">
+                <img src="images/lp_image_5.jpg" alt="Us" class="memory-photo">
+                <img src="images/lp_image_6.jpg" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="photo-grid single">
+                <img src="images/lp_image_7.jpg" alt="Us" class="memory-photo featured">
+            </div>
+
+            <div class="divider-hearts">♡ ♡ ♡</div>
+
+            <div class="countdown-card">
+                <h3>Okay okay, scroll down for the surprise 🎁</h3>
+                <p>Almost there...</p>
+            </div>
+        </section>
+
+        <section class="reveal-section">
+            <div class="reveal-card">
+                <span class="confetti">🎉</span>
+                <span class="confetti">🎊</span>
+                <span class="confetti">✨</span>
+                <span class="confetti">🎈</span>
+                
+                <img src="images/alice_pheobe_lou.jpg" alt="Alice Phoebe Lou" class="reveal-image">
+                
+                <h2>🎁🎁🎁🎁🎁</h2>
+                <p>I got us tickets to see <strong>Alice Phoebe Lou</strong> (Alice phloue flou)</p>
+                <p style="margin-top: 16px; font-size: 1.3rem; color: var(--red);"><strong>April 9th • Toronto</strong></p>
+                <p style="margin-top: 8px;">Get excited you smelly butt</p>
+                
+                <div class="ticket-badge">🎫 See you there 🎫</div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('hearts');
+            const hearts = ['❤️', '💕', '💗', '💖', '💝', '♥️', '🩷'];
+            
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+                heart.style.fontSize = (16 + Math.random() * 24) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        createHearts();
+
+        // Add click hearts effect
+        document.addEventListener('click', function(e) {
+            const heart = document.createElement('div');
+            heart.textContent = '❤️';
+            heart.style.cssText = `
+                position: fixed;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                font-size: 24px;
+                pointer-events: none;
+                z-index: 9999;
+                animation: clickHeart 1s ease-out forwards;
+            `;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
+        });
+
+        // Add click heart animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes clickHeart {
+                0% {
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(2) translateY(-50px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
