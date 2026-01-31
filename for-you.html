@@ -276,6 +276,230 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
+        /* Photo memories section */
+        .memories-section {
+            margin-bottom: 50px;
+        }
+
+        .memories-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .memories-header h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: var(--red);
+            margin-bottom: 8px;
+        }
+
+        .memories-header p {
+            color: var(--pink);
+            font-weight: 500;
+        }
+
+        .photo-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .photo-grid.two-col {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .photo-grid.three-col {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .photo-grid.single {
+            grid-template-columns: 1fr;
+        }
+
+        .memory-photo {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.15);
+            border: 3px solid var(--pink-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .memory-photo:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 35px rgba(196, 30, 58, 0.25);
+        }
+
+        .memory-photo.tall {
+            height: 350px;
+        }
+
+        .memory-photo.featured {
+            height: 400px;
+            border-color: var(--red);
+            border-width: 4px;
+        }
+
+        .love-note {
+            background: linear-gradient(135deg, var(--pink-pale), white);
+            border-radius: 20px;
+            padding: 30px 24px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.1);
+            border: 2px solid var(--pink-light);
+            position: relative;
+        }
+
+        .love-note::before {
+            content: '💝';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            background: var(--cream);
+            padding: 0 10px;
+        }
+
+        .love-note p {
+            font-size: 1.2rem;
+            color: var(--red-dark);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .love-note .note-emoji {
+            font-size: 2rem;
+            margin-top: 16px;
+            display: block;
+        }
+
+        .divider-hearts {
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 12px;
+            margin: 40px 0;
+            color: var(--pink);
+        }
+
+        .photo-caption {
+            text-align: center;
+            margin-top: -20px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            color: var(--pink);
+            font-weight: 500;
+        }
+
+        .countdown-card {
+            background: linear-gradient(135deg, var(--red), var(--red-bright));
+            border-radius: 24px;
+            padding: 30px 24px;
+            text-align: center;
+            color: white;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(196, 30, 58, 0.3);
+        }
+
+        .countdown-card h3 {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+
+        .countdown-card p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .memory-polaroid {
+            background: white;
+            padding: 12px 12px 40px 12px;
+            border-radius: 4px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transform: rotate(-2deg);
+            margin: 20px auto;
+            max-width: 300px;
+        }
+
+        .memory-polaroid:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .memory-polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .memory-polaroid .caption {
+            text-align: center;
+            margin-top: 12px;
+            font-family: 'Pacifico', cursive;
+            color: var(--red-dark);
+            font-size: 1rem;
+        }
+
+        .stacked-photos {
+            position: relative;
+            height: 400px;
+            margin: 40px 0;
+        }
+
+        .stacked-photos .memory-photo {
+            position: absolute;
+            width: 70%;
+            height: 280px;
+            left: 50%;
+        }
+
+        .stacked-photos .memory-photo:nth-child(1) {
+            transform: translateX(-50%) rotate(-8deg);
+            z-index: 1;
+        }
+
+        .stacked-photos .memory-photo:nth-child(2) {
+            transform: translateX(-50%) rotate(5deg);
+            z-index: 2;
+            top: 40px;
+        }
+
+        .stacked-photos .memory-photo:nth-child(3) {
+            transform: translateX(-50%) rotate(-3deg);
+            z-index: 3;
+            top: 80px;
+        }
+
+        @media (max-width: 500px) {
+            .photo-grid.three-col {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .memory-photo {
+                height: 180px;
+            }
+
+            .memory-photo.tall {
+                height: 250px;
+            }
+
+            .memory-photo.featured {
+                height: 300px;
+            }
+
+            .stacked-photos {
+                height: 320px;
+            }
+
+            .stacked-photos .memory-photo {
+                width: 85%;
+                height: 220px;
+            }
+        }
+
         /* Reveal section */
         .reveal-section {
             animation: slideUp 0.8s ease-out 0.7s backwards;
@@ -513,6 +737,86 @@
             </div>
         </section>
 
+        <!-- Photo Memories Section -->
+        <section class="memories-section">
+            <div class="memories-header">
+                <h2>Some of my favorites 📸</h2>
+                <p>keep scrolling...</p>
+            </div>
+
+            <!-- First grid - 2 photos -->
+            <div class="photo-grid two-col">
+                <img src="images/IMG_9248.HEIC" alt="Us" class="memory-photo">
+                <img src="images/IMG_9339.HEIC" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="love-note">
+                <p>Every moment with you feels like the best one yet.</p>
+                <span class="note-emoji">🥰</span>
+            </div>
+
+            <!-- Featured single photo -->
+            <div class="photo-grid single">
+                <img src="images/IMG_9490.HEIC" alt="Us" class="memory-photo featured">
+            </div>
+            <p class="photo-caption">this one's my favorite btw ↑</p>
+
+            <div class="divider-hearts">♡ ♡ ♡</div>
+
+            <!-- Three column grid -->
+            <div class="photo-grid three-col">
+                <img src="images/IMG_9492.HEIC" alt="Us" class="memory-photo">
+                <img src="images/IMG_9540.HEIC" alt="Us" class="memory-photo">
+                <img src="images/IMG_9568.HEIC" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="love-note">
+                <p>I never get tired of making memories with you. Here's to a million more.</p>
+                <span class="note-emoji">💕</span>
+            </div>
+
+            <!-- Two more photos -->
+            <div class="photo-grid two-col">
+                <img src="images/IMG_9573.HEIC" alt="Us" class="memory-photo tall">
+                <img src="images/IMG_9662.HEIC" alt="Us" class="memory-photo tall">
+            </div>
+
+            <div class="countdown-card">
+                <h3>22 looks good on you ✨</h3>
+                <p>Just saying.</p>
+            </div>
+
+            <!-- More photos -->
+            <div class="photo-grid single">
+                <img src="images/IMG_5236.heic" alt="Us" class="memory-photo featured">
+            </div>
+
+            <div class="divider-hearts">💗 💗 💗</div>
+
+            <div class="photo-grid two-col">
+                <img src="images/IMG_6127.HEIC" alt="Us" class="memory-photo">
+                <img src="images/IMG_7991.HEIC" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="love-note">
+                <p>You make everything better. Literally everything. Even the boring stuff.</p>
+                <span class="note-emoji">☺️</span>
+            </div>
+
+            <!-- LP images -->
+            <div class="photo-grid three-col">
+                <img src="images/lp_image.HEIC" alt="Us" class="memory-photo">
+                <img src="images/lp_image 2.HEIC" alt="Us" class="memory-photo">
+                <img src="images/lp_image 3.HEIC" alt="Us" class="memory-photo">
+            </div>
+
+            <div class="divider-hearts">♡ ♡ ♡</div>
+
+            <div class="countdown-card">
+                <h3>Okay okay, scroll down for the surprise 🎁</h3>
+                <p>Almost there...</p>
+            </div>
+        </section>
 
         <section class="reveal-section">
             <div class="reveal-card">
